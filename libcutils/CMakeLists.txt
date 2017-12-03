@@ -1,0 +1,50 @@
+cmake_minimum_required(VERSION 3.8)
+project(libcutils)
+
+set(libcutils_sources
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/config_utils.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/fs_config.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/canned_fs_config.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/hashmap.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/iosched_policy.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/load_file.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/native_handle.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/open_memstream.c
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/record_stream.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/sched_policy.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/sockets.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/strdup16to8.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/strdup8to16.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/strlcpy.c
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/threads.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/android_get_control_file.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/fs.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/multiuser.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_inaddr_any_server_unix.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_local_client_unix.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_local_server_unix.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_network_client_unix.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/sockets_unix.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/str_parms.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/ashmem-host.cpp
+        ${CMAKE_SOURCE_DIR}/system/core/libcutils/trace-host.cpp
+        )
+
+set(libcutils_cflag
+        "-Werror -Wall -Wextra"
+        )
+
+set(libcutils_cxxflag
+        "${libcutils_cflag} -DANDROID_STRICT -D_USING_LIBCXX -std=gnu++14  -Werror=int-to-pointer-cast -Werror=pointer-to-int-cast -Werror=address-of-temporary -Werror=return-type"
+        )
+
+include_directories(
+        ${libcutils_header}
+        ${libutils_header}
+        ${liblog_header}
+)
+
+set(CMAKE_C_FLAGS ${libcutils_cflag})
+set(CMAKE_CXX_FLAGS ${libcutils_cxxflag})
+add_library(cutils STATIC ${libcutils_sources})
+
