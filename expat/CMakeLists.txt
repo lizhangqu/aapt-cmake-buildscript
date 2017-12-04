@@ -12,8 +12,15 @@ include_directories(
 )
 
 set(expat_cflag
-        "-Wall -Werror -Wmissing-prototypes -Wstrict-prototypes -Wno-unused-parameter -Wno-missing-field-initializers -fexceptions -DHAVE_EXPAT_CONFIG_H -fno-common"
+        "-Wall -Werror -Wmissing-prototypes -Wstrict-prototypes -Wno-unused-parameter -Wno-missing-field-initializers -fexceptions -DHAVE_EXPAT_CONFIG_H"
         )
+
+if(APPLE)
+    set(expat_cflag "${expat_cflag} -fno-common")
+elseif(UNIX)
+endif()
+
+#MESSAGE(STATUS "expat_cflag ${expat_cflag}")
 
 set(CMAKE_C_FLAGS ${expat_cflag})
 add_library(expat STATIC ${expat_sources})

@@ -35,7 +35,7 @@ set(libcutils_cflag
         )
 
 set(libcutils_cxxflag
-        "${libcutils_cflag} -DANDROID_STRICT -D_USING_LIBCXX -std=gnu++14  -Werror=int-to-pointer-cast -Werror=pointer-to-int-cast -Werror=address-of-temporary -Werror=return-type"
+        "${libcutils_cflag} -std=gnu++14"
         )
 
 include_directories(
@@ -47,4 +47,4 @@ include_directories(
 set(CMAKE_C_FLAGS ${libcutils_cflag})
 set(CMAKE_CXX_FLAGS ${libcutils_cxxflag})
 add_library(cutils STATIC ${libcutils_sources})
-
+target_link_libraries(cutils log)

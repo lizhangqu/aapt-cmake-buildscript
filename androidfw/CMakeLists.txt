@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 project(androidfw)
 
-set(CMAKE_VERBOSE_MAKEFILE ON)
-
 set(androidfw_sources
         ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/AssetManager2.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/AssetManager.cpp
@@ -46,4 +44,4 @@ include_directories(
 set(CMAKE_C_FLAGS ${androidfw_cflag})
 set(CMAKE_CXX_FLAGS ${androidfw_cxxflag})
 add_library(androidfw STATIC ${androidfw_sources})
-
+target_link_libraries(androidfw ziparchive base log cutils utils zlib)

@@ -1,17 +1,15 @@
 cmake_minimum_required(VERSION 3.8)
 project(aapt)
 
-SET (CMAKE_C_COMPILER "/usr/bin/clang")
-
-set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s")
-set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
-set(CMAKE_STATIC_LINKER_FLAGS_RELEASE "${CMAKE_STATIC_LINKER_FLAGS_RELEASE} -s")
-set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} -s")
-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O3")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O3")
-set(CMAKE_STATIC_LINKER_FLAGS_DEBUG "${CMAKE_STATIC_LINKER_FLAGS_DEBUG} -s")
-set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} -s")
+#set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s")
+#set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3")
+#set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+#set(CMAKE_STATIC_LINKER_FLAGS_RELEASE "${CMAKE_STATIC_LINKER_FLAGS_RELEASE} -s")
+#set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} -s")
+#set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O3")
+#set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O3")
+#set(CMAKE_STATIC_LINKER_FLAGS_DEBUG "${CMAKE_STATIC_LINKER_FLAGS_DEBUG} -s")
+#set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} -s")
 
 set(aapt_sources
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt/AaptAssets.cpp
@@ -39,12 +37,17 @@ set(aapt_sources
         )
 
 set(aapt_cflag
-        "-Werror -Wall -Wno-unused-function -D_DARWIN_UNLIMITED_STREAMS -Wno-format-y2k -DSTATIC_ANDROIDFW_FOR_TOOLS"
+        "-Werror -Wall -Wno-format-y2k -DSTATIC_ANDROIDFW_FOR_TOOLS"
         )
 
-set(aapt_cflag
-        "${aapt_cflag} -D_USING_LIBCXX -O3"
-        )
+if(APPLE)
+    set(aapt_cflag "${aapt_cflag} -D_DARWIN_UNLIMITED_STREAMS")
+endif()
+
+#
+#set(aapt_cflag
+#        "${aapt_cflag} -O3"
+#        )
 
 set(aapt_cxxflag
         "${aapt_cflag} -std=gnu++14"
@@ -64,8 +67,10 @@ include_directories(
         ${native_header}
 )
 
+
 set(CMAKE_C_FLAGS ${aapt_cflag})
 set(CMAKE_CXX_FLAGS ${aapt_cxxflag})
+
 add_executable(aapt ${aapt_sources})
 target_link_libraries(aapt androidfw png utils log cutils expat ziparchive base zlib)
 

@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 project(libpng)
 
-SET (CMAKE_C_COMPILER "/usr/bin/clang")
-
 set(libpng_sources
         ${CMAKE_SOURCE_DIR}/external/libpng/png.c
         ${CMAKE_SOURCE_DIR}/external/libpng/pngerror.c
@@ -27,11 +25,10 @@ include_directories(
         ${libpng_header}
 )
 
-
 set(libpng_cflag
-        "-std=gnu89 -Wall -Werror -Wno-unused-parameter"
+        "-std=gnu89 -Wall -Werror -Wno-unused-parameter -DPNG_INTEL_SSE_OPT=1"
         )
 
 set(CMAKE_C_FLAGS ${libpng_cflag})
 add_library(png STATIC ${libpng_sources})
-
+target_link_libraries(png zlib)

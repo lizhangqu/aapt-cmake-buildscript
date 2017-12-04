@@ -21,12 +21,14 @@ set(base_cflag "-Wall -Werror -Wextra"
         )
 
 set(base_cxxflag
-        "${base_cflag} -std=gnu++14"
+        "${base_cflag} -std=gnu++14 -Wexit-time-destructors"
         )
+
 set(CMAKE_C_FLAGS ${base_cflag})
 set(CMAKE_CXX_FLAGS ${base_cxxflag})
 
 add_library(base STATIC ${base_sources})
+target_link_libraries(base log)
 
 
 

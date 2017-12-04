@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 project(zlib)
 
-SET (CMAKE_C_COMPILER "/usr/bin/clang")
-
 set(zlib_sources
         ${CMAKE_SOURCE_DIR}/external/zlib/src/adler32.c
         ${CMAKE_SOURCE_DIR}/external/zlib/src/compress.c
@@ -25,9 +23,9 @@ include_directories(
         ${zlib_header}
 )
 
-set(libz_cflag
+set(zlib_cflag
         "-O3 -DUSE_MMAP -DZLIB_CONST -Wall -Werror"
         )
 
-set(CMAKE_C_FLAGS ${libz_cflag})
+set(CMAKE_C_FLAGS ${zlib_cflag})
 add_library(zlib STATIC ${zlib_sources})

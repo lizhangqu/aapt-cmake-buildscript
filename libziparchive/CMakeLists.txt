@@ -17,13 +17,14 @@ set(libziparchive_cxxflag
         )
 
 include_directories(
+        ${libziparchive_header}
         ${base_header}
         ${liblog_header}
         ${libutils_header}
-        ${libziparchive_header}
 )
 
 set(CMAKE_C_FLAGS ${libziparchive_cflag})
 set(CMAKE_CXX_FLAGS ${libziparchive_cxxflag})
 add_library(ziparchive STATIC ${libziparchive_sources})
+target_link_libraries(ziparchive base log zlib utils)
 

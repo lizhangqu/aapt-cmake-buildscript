@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 3.8)
 project(aapt2)
 
-set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s")
-set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
-set(CMAKE_STATIC_LINKER_FLAGS_RELEASE "${CMAKE_STATIC_LINKER_FLAGS_RELEASE} -s")
-set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} -s")
-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O3")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O3")
-set(CMAKE_STATIC_LINKER_FLAGS_DEBUG "${CMAKE_STATIC_LINKER_FLAGS_DEBUG} -s")
-set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} -s")
+#set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s")
+#set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3")
+#set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+#set(CMAKE_STATIC_LINKER_FLAGS_RELEASE "${CMAKE_STATIC_LINKER_FLAGS_RELEASE} -s")
+#set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} -s")
+#set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O3")
+#set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O3")
+#set(CMAKE_STATIC_LINKER_FLAGS_DEBUG "${CMAKE_STATIC_LINKER_FLAGS_DEBUG} -s")
+#set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} -s")
 
 set(aapt2_sources
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/cmd/Compile.cpp
@@ -85,15 +85,23 @@ set(aapt2_sources
         )
 
 set(aapt2_cflag
-        "-Werror -Wall -Wno-unused-parameter -D_DARWIN_UNLIMITED_STREAMS -Wno-deprecated-declarations"
+        "-Werror -Wall -Wno-unused-parameter"
         )
 
-set(aapt2_cflag
-        "${aapt2_cflag} -O3"
-        )
+if (APPLE)
+    set(aapt2_cflag "${aapt2_cflag} -D_DARWIN_UNLIMITED_STREAMS")
+endif ()
+
+
+#官方的编译选项中没有此项
+set(aapt2_cflag "${aapt2_cflag} -Wno-deprecated-declarations")
+
+#set(aapt2_cflag
+#        "${aapt2_cflag} -O3"
+#        )
 
 set(aapt2_cxxflag
-        "${aapt2_cflag} -std=gnu++14 -Wno-missing-field-initializers -fno-exceptions "
+        "${aapt2_cflag} -std=gnu++14 -Wno-missing-field-initializers -fno-exceptions"
         )
 
 include_directories(
@@ -111,20 +119,21 @@ include_directories(
         ${libpng_header}
 )
 
-set(CMAKE_C_FLAGS ${aapt2_cflag})
+set(CMAKE/C_FLAGS ${aapt2_cflag})
 set(CMAKE_CXX_FLAGS ${aapt2_cxxflag})
 
 add_executable(aapt2 ${aapt2_sources})
 target_link_libraries(aapt2 expat androidfw base cutils log png utils ziparchive zlib protobuf)
 
-MESSAGE(STATUS "不知道为什么，在cmake里调用protoc将.proto文件转为.cc和.h时会出现找不到文件的问题，如果出现了问题，将对应命令拷贝到命令行执行，生成Format.pb.cc和Format.pb.h")
+MESSAGE(STATUS "如果在cmake里调用aprotoc将.proto文件转为.cc和.h时会出现找不到文件的问题，将对应命令拷贝到命令行执行，生成Format.pb.cc和Format.pb.h")
 MESSAGE(STATUS "======================================命令开始======================================")
-MESSAGE(STATUS "cd ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2 && ${CMAKE_BINARY_DIR}/buildscript/protobuf/protoc --cpp_out=. Format.proto")
+MESSAGE(STATUS "cd ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2 && ${CMAKE_BINARY_DIR}/buildscript/protobuf/aprotoc/aprotoc --cpp_out=. Format.proto")
 MESSAGE(STATUS "======================================命令结束======================================")
-##不知道为什么，在cmake里会出现找不到文件的问题，如果出现了问题，将对应命令拷贝到命令行执行，生成Format.pb.cc和Format.pb.h
-#if((NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/Format.pb.h) OR (NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/Format.pb.cc))
-#    add_custom_target(format_pb_h
-#            WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}"
-#            COMMAND "${CMAKE_BINARY_DIR}/protobuf/protoc --cpp_out=. Format.proto")
-#    add_dependencies(aapt2 format_pb_h)
-#endif()
+#if ((NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/Format.pb.h) OR (NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/Format.pb.cc))
+    add_custom_target(format_pb_h
+            WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2"
+            COMMAND ${CMAKE_BINARY_DIR}/buildscript/protobuf/aprotoc/aprotoc --cpp_out=. Format.proto
+            DEPENDS aprotoc
+            )
+    add_dependencies(aapt2 format_pb_h)
+#endif ()

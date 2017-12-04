@@ -1,33 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
-project(libprotobuf)
+project(aprotoc)
 
-set(libprotobuf_sources
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/stubs/bytestream.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/stubs/common.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/stubs/int128.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/stubs/once.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/stubs/status.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/stubs/statusor.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/stubs/stringpiece.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/stubs/stringprintf.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/stubs/structurally_valid.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/stubs/strutil.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/stubs/time.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/arena.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/arenastring.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/extension_set.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/generated_message_util.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/message_lite.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/repeated_field.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/wire_format_lite.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/io/coded_stream.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/io/zero_copy_stream.cc
-        ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.cc
-        )
-
-set(protoc_sources
+set(aprotoc_sources
         ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/any.cc
         ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/arena.cc
         ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/arenastring.cc
@@ -173,24 +147,23 @@ set(protoc_sources
         ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/stubs/stringprintf.cc
         )
 
-set(libprotobuf_cflag
-        "-Wno-sign-compare -Wno-unused-parameter -Wno-sign-promo -Wno-error=return-type -DGOOGLE_PROTOBUF_NO_RTTI -Wall -Wno-error=format -Wno-error=format-extra-args -Wno-error=ignored-qualifiers -Wno-error=sign-promo -Wno-unused-function -Werror -Wno-deprecated-declarations"
+set(aprotoc_cflag
+        "-Wall -Wno-error=format -Wno-error=format-extra-args -Wno-error=ignored-qualifiers -Wno-error=sign-promo -Wno-unused-function -Werror -Wno-sign-compare -Wno-unused-parameter -Wno-sign-promo -Wno-error=return-type"
         )
 
+#官方的编译选项中没有此项
+set(aprotoc_cflag "${aprotoc_cflag}  -Wno-deprecated-declarations")
 
-set(libprotobuf_cxxflag "${libziparchive_cflag} -std=gnu++14 -Wno-error=unused-const-variable -Wno-error=user-defined-warnings "
+set(aprotoc_cxxflag "${aprotoc_cflag} -std=gnu++14"
         )
 
 include_directories(
         ${protobuf_header}
 )
 
-set(CMAKE_C_FLAGS ${libprotobuf_cflag})
-set(CMAKE_CXX_FLAGS ${libprotobuf_cxxflag})
-add_library(protobuf STATIC ${libprotobuf_sources})
-
-add_executable(protoc ${protoc_sources})
-target_link_libraries(protoc zlib)
-add_dependencies(protobuf protoc)
+set(CMAKE_C_FLAGS ${aprotoc_cflag})
+set(CMAKE_CXX_FLAGS ${aprotoc_cxxflag})
+add_executable(aprotoc ${aprotoc_sources})
+target_link_libraries(aprotoc zlib)
 
 
