@@ -1,28 +1,28 @@
-### aapt cmake buildscript
+# aapt cmake buildscript
 
-# manifest仓库
+### manifest仓库
 
 查看manifest仓库请转移到 [https://github.com/lizhangqu/aapt-repo](https://github.com/lizhangqu/aapt-repo)
 
-创建大小写敏感磁盘
+### 创建大小写敏感磁盘
 
 ```
 hdiutil create -volname "aapt" -type SPARSE -fs 'Case-sensitive Journaled HFS+' -size 10g aapt.dmg
 ```
 
-挂载
+### 挂载
 
 ```
 hdiutil attach aapt.dmg.sparseimage -mountpoint /Volumes/aapt
 ```
 
-卸载
+### 卸载
 
 ```
 hdiutil detach /Volumes/aapt
 ```
 
-安装repo
+### 安装repo
 
 ```
 mkdir ~/bin
@@ -31,7 +31,7 @@ curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
 chmod a+x ~/bin/repo
 ```
 
-初始化repo项目
+### 初始化repo项目
 
 ```
 cd /Volumes/aapt
@@ -42,7 +42,7 @@ repo init -u git@github.com:lizhangqu/aapt-repo.git
 repo sync -j8
 ```
 
-执行构建，构建过程中发生错误请自行根据提示安装对应的依赖库
+### 执行构建，构建过程中发生错误请自行根据提示安装对应的依赖库
 
 ```
 cd /Volumes/aapt
