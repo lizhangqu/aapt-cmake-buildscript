@@ -1,6 +1,8 @@
 ### aapt cmake buildscript
 
-# aapt-repo
+# manifest仓库
+
+查看manifest仓库请转移到 [https://github.com/lizhangqu/aapt-repo](https://github.com/lizhangqu/aapt-repo)
 
 创建大小写敏感磁盘
 
