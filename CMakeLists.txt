@@ -62,6 +62,9 @@ set(aapt_header
 set(aapt2_header
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2
         )
+
+
+MESSAGE(STATUS "当前CMAKE_SOURCE_DIR目录: ${CMAKE_SOURCE_DIR}")
 #添加子目录构建脚本
 add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/zlib)
 add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/libpng)
