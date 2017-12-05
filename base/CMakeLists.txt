@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.8)
 project(base)
 
+SET (CMAKE_C_COMPILER "/usr/bin/clang")
+SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
+
 set(base_sources
         ${CMAKE_SOURCE_DIR}/system/core/base/file.cpp
         ${CMAKE_SOURCE_DIR}/system/core/base/logging.cpp

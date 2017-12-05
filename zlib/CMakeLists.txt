@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.8)
 project(zlib)
 
+SET (CMAKE_C_COMPILER "/usr/bin/clang")
+SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
+
 set(zlib_sources
         ${CMAKE_SOURCE_DIR}/external/zlib/src/adler32.c
         ${CMAKE_SOURCE_DIR}/external/zlib/src/compress.c

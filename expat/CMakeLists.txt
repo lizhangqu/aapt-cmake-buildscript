@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.8)
 project(expat)
 
+SET (CMAKE_C_COMPILER "/usr/bin/clang")
+SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
+
 set(expat_sources
         ${CMAKE_SOURCE_DIR}/external/expat/lib/xmlparse.c
         ${CMAKE_SOURCE_DIR}/external/expat/lib/xmlrole.c

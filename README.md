@@ -22,6 +22,10 @@ hdiutil attach aapt.dmg.sparseimage -mountpoint /Volumes/aapt
 hdiutil detach /Volumes/aapt
 ```
 
+### 编译环境
+
+Android 8.0开始，只支持使用clang进行构建。
+
 ### 安装repo
 
 ```
@@ -57,3 +61,5 @@ cmake --build "./build-cmake" --target aapt2
 cmake --build "./build-cmake" --target format_pb_h
 cmake --build "./build-cmake" --target aapt2
 ```
+
+
