@@ -25,7 +25,7 @@ set(androidfw_sources
         ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/ApkAssets.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/LoadedArsc.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/ResourceUtils.cpp
-        ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/Helper.cpp
+#        ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/Helper.cpp
         )
 
 set(androidfw_cflag "-Werror -Wall -Wunused -Wunreachable-code -DSTATIC_ANDROIDFW_FOR_TOOLS")
