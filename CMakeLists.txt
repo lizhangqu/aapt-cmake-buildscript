@@ -35,6 +35,19 @@ set(zlib_header
         ${CMAKE_SOURCE_DIR}/external/zlib
         ${CMAKE_SOURCE_DIR}/external/zlib/src
         )
+
+set(libcxx_header
+        ${CMAKE_SOURCE_DIR}/external/libcxx/include
+        )
+
+set(libcxxabi_header
+        ${CMAKE_SOURCE_DIR}/external/libcxxabi/include
+        )
+
+set(compiler_rt_header
+        ${CMAKE_SOURCE_DIR}/external/compiler-rt/include
+        )
+
 set(base_header
         ${CMAKE_SOURCE_DIR}/system/core/base/include
         )
@@ -62,6 +75,8 @@ set(aapt_header
 set(aapt2_header
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2
         )
+
+set(global_libcxx_cxxflags "-nostdinc++ -DLIBCXX_BUILDING_LIBCXXABI -D_LIBCPP_BUILDING_LIBRARY")
 
 
 MESSAGE(STATUS "当前CMAKE_SOURCE_DIR目录: ${CMAKE_SOURCE_DIR}")
