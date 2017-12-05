@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.8)
 project(libcutils)
 
-SET (CMAKE_C_COMPILER "/usr/bin/clang")
-SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
+if(UNIX AND NOT APPLE)
+    SET (CMAKE_C_COMPILER "/usr/bin/clang")
+    SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
+endif()
 
 set(libcutils_sources
         ${CMAKE_SOURCE_DIR}/system/core/libcutils/config_utils.cpp

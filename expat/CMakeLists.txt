@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.8)
 project(expat)
 
-SET (CMAKE_C_COMPILER "/usr/bin/clang")
-SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
+if(UNIX AND NOT APPLE)
+    SET (CMAKE_C_COMPILER "/usr/bin/clang")
+    SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
+endif()
 
 set(expat_sources
         ${CMAKE_SOURCE_DIR}/external/expat/lib/xmlparse.c

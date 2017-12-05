@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.8)
 project(aapt)
 
+if(UNIX AND NOT APPLE)
+    SET (CMAKE_C_COMPILER "/usr/bin/clang")
+    SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
+endif()
+
 set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -s")
 set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
@@ -11,9 +16,6 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O3")
 set(CMAKE_STATIC_LINKER_FLAGS_DEBUG "${CMAKE_STATIC_LINKER_FLAGS_DEBUG} -s")
 set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} -s")
 
-
-SET (CMAKE_C_COMPILER "/usr/bin/clang")
-SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
 
 set(aapt_sources
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt/AaptAssets.cpp

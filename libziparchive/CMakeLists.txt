@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.8)
 project(libziparchive)
 
-SET (CMAKE_C_COMPILER "/usr/bin/clang")
-SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
+if(UNIX AND NOT APPLE)
+    SET (CMAKE_C_COMPILER "/usr/bin/clang")
+    SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
+endif()
 
 set(libziparchive_sources
         ${CMAKE_SOURCE_DIR}/system/core/libziparchive/zip_archive.cc

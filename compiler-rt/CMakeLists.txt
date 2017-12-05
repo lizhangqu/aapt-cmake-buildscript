@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.8)
 project(compiler-rt)
 
+if(UNIX AND NOT APPLE)
+    SET (CMAKE_C_COMPILER "/usr/bin/clang")
+    SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
+endif()
+
 set(compiler_rt_sources
         ${CMAKE_SOURCE_DIR}/external/compiler-rt/lib/builtins/enable_execute_stack.c
         ${CMAKE_SOURCE_DIR}/external/compiler-rt/lib/builtins/absvdi2.c

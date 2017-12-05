@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.8)
 project(libcxx)
 
+if(UNIX AND NOT APPLE)
+    SET (CMAKE_C_COMPILER "/usr/bin/clang")
+    SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
+endif()
+
 set(libcxx_sources
         ${CMAKE_SOURCE_DIR}/external/libcxx/src/algorithm.cpp
         ${CMAKE_SOURCE_DIR}/external/libcxx/src/any.cpp
