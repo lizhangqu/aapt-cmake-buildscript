@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.8)
 project(androidfw)
 
+SET (CMAKE_C_COMPILER "/usr/bin/clang")
+SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
+
 set(androidfw_sources
         ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/AssetManager2.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/AssetManager.cpp
