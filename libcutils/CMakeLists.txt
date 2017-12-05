@@ -37,6 +37,9 @@ set(libcutils_cflag
         "-Werror -Wall -Wextra"
         )
 
+#添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
+set(libcutils_cflag "${libcutils_cflag} -DNDEBUG -UDEBUG")
+
 set(libcutils_cxxflag
         "${libcutils_cflag} -std=gnu++14"
         )

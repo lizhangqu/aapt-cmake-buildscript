@@ -29,6 +29,9 @@ set(liblog_cflag
         "-DFAKE_LOG_DEVICE=1 -Werror -fvisibility=hidden -DLIBLOG_LOG_TAG=1006 -DSNET_EVENT_LOG_TAG=1397638484"
         )
 
+#添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
+set(liblog_cflag "${liblog_cflag} -DNDEBUG -UDEBUG")
+
 set(liblog_cxxflag "${liblog_cflag} -std=gnu++14"
         )
 include_directories(

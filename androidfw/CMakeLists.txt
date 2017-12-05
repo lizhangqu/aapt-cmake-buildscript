@@ -29,6 +29,9 @@ set(androidfw_cflag
         "-Werror -Wall -Wunused -Wunreachable-code -DSTATIC_ANDROIDFW_FOR_TOOLS"
         )
 
+#添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
+set(androidfw_cflag "${androidfw_cflag} -DNDEBUG -UDEBUG")
+
 set(androidfw_cxxflag
         "${androidfw_cflag} -std=gnu++14"
         )

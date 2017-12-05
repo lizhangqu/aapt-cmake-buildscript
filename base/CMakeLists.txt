@@ -23,6 +23,9 @@ include_directories(
 set(base_cflag "-Wall -Werror -Wextra"
         )
 
+#添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
+set(base_cflag "${base_cflag} -DNDEBUG -UDEBUG")
+
 set(base_cxxflag
         "${base_cflag} -std=gnu++14 -Wexit-time-destructors"
         )

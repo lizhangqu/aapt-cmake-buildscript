@@ -34,6 +34,9 @@ set(libprotobuf_cflag
         "-Wno-sign-compare -Wno-unused-parameter -Wno-sign-promo -Wno-error=return-type -DGOOGLE_PROTOBUF_NO_RTTI"
         )
 
+#添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
+set(libprotobuf_cflag "${libprotobuf_cflag} -DNDEBUG -UDEBUG")
+
 #官方的编译选项中没有此项
 set(libprotobuf_cflag "${libprotobuf_cflag} -Wno-deprecated-declarations")
 

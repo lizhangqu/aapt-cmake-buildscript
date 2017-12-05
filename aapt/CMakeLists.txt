@@ -44,12 +44,14 @@ set(aapt_cflag
         "-Werror -Wall -Wno-format-y2k -DSTATIC_ANDROIDFW_FOR_TOOLS"
         )
 
+#添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
+set(aapt_cflag "${aapt_cflag} -DNDEBUG -UDEBUG")
+
 if(APPLE)
     set(aapt_cflag "${aapt_cflag} -D_DARWIN_UNLIMITED_STREAMS")
 endif()
 
-#添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
-set(aapt_cflag "${aapt_cflag} -DNDEBUG -UDEBUG")
+
 
 set(aapt_cflag
         "${aapt_cflag} -O3"

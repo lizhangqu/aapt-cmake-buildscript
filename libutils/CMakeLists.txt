@@ -31,6 +31,9 @@ set(libutils_cflag
         "-Wall -Werror -DLIBUTILS_NATIVE=1"
         )
 
+#添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
+set(libutils_cflag "${libutils_cflag} -DNDEBUG -UDEBUG")
+
 if(APPLE)
     set(libutils_cflag "${libutils_cflag} -Wno-unused-parameter")
 endif()

@@ -91,12 +91,13 @@ set(aapt2_cflag
         "-Werror -Wall -Wno-unused-parameter"
         )
 
+#添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
+set(aapt2_cflag "${aapt2_cflag} -DNDEBUG -UDEBUG")
+
 if (APPLE)
     set(aapt2_cflag "${aapt2_cflag} -D_DARWIN_UNLIMITED_STREAMS")
 endif ()
 
-#添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
-set(aapt2_cflag "${aapt2_cflag} -DNDEBUG -UDEBUG")
 
 #官方的编译选项中没有此项
 set(aapt2_cflag "${aapt2_cflag} -Wno-deprecated-declarations")
