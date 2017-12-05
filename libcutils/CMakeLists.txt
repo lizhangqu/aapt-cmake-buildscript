@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.8)
 project(libcutils)
 
-if(UNIX AND NOT APPLE)
-    SET (CMAKE_C_COMPILER "/usr/bin/clang")
-    SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
-endif()
+if (UNIX AND NOT APPLE)
+    SET(CMAKE_C_COMPILER "/usr/bin/clang")
+    SET(CMAKE_CXX_COMPILER "/usr/bin/clang++")
+endif ()
 
 set(libcutils_sources
         ${CMAKE_SOURCE_DIR}/system/core/libcutils/config_utils.cpp
@@ -35,18 +35,20 @@ set(libcutils_sources
         ${CMAKE_SOURCE_DIR}/system/core/libcutils/trace-host.cpp
         )
 
-set(libcutils_cflag
-        "-Werror -Wall -Wextra"
-        )
+set(libcutils_cflag "-Werror -Wall -Wextra")
+
+#启用libcxx
+set(libcutils_cflag "${libcutils_cflag} ${global_libcxx_cxxflags}")
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(libcutils_cflag "${libcutils_cflag} -DNDEBUG -UDEBUG")
 
-set(libcutils_cxxflag
-        "${libcutils_cflag} -std=gnu++14"
-        )
+set(libcutils_cxxflag "${libcutils_cflag} -std=gnu++14")
 
 include_directories(
+        ${libcxx_header}
+        ${libcxxabi_header}
+        ${compiler_rt_header}
         ${libcutils_header}
         ${libutils_header}
         ${liblog_header}

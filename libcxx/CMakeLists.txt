@@ -39,18 +39,18 @@ set(libcxx_sources
 
 set(libcxx_cflag "")
 
-#启libcxx
+#启用libcxx
 set(libcxx_cflag "${libcxx_cflag} ${global_libcxx_cxxflags}")
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(libcxx_cflag "${libcxx_cflag} -DNDEBUG -UDEBUG")
 
-set(libcxx_cxxflag
-        "${libcxx_cflag} -std=gnu++14"
-        )
+set(libcxx_cxxflag "${libcxx_cflag} -std=gnu++14")
 
 include_directories(
         ${libcxx_header}
+        ${libcxxabi_header}
+        ${compiler_rt_header}
 )
 
 set(CMAKE_C_FLAGS ${libcxx_cflag})

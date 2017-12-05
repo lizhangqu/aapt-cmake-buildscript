@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.8)
 project(aprotoc)
 
-if(UNIX AND NOT APPLE)
-    SET (CMAKE_C_COMPILER "/usr/bin/clang")
-    SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
-endif()
+if (UNIX AND NOT APPLE)
+    SET(CMAKE_C_COMPILER "/usr/bin/clang")
+    SET(CMAKE_CXX_COMPILER "/usr/bin/clang++")
+endif ()
 
 set(aprotoc_sources
         ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/any.cc
@@ -152,18 +152,21 @@ set(aprotoc_sources
         ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/stubs/stringprintf.cc
         )
 
-set(aprotoc_cflag
-        "-Wall -Wno-error=format -Wno-error=format-extra-args -Wno-error=ignored-qualifiers -Wno-error=sign-promo -Wno-unused-function -Werror -Wno-sign-compare -Wno-unused-parameter -Wno-sign-promo -Wno-error=return-type"
-        )
+set(aprotoc_cflag "-Wall -Wno-error=format -Wno-error=format-extra-args -Wno-error=ignored-qualifiers -Wno-error=sign-promo -Wno-unused-function -Werror -Wno-sign-compare -Wno-unused-parameter -Wno-sign-promo -Wno-error=return-type")
+
+#启用libcxx
+#set(aprotoc_cflag "${aprotoc_cflag} ${global_libcxx_cxxflags} -Wno-unused-command-line-argument")
+
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(aprotoc_cflag "${aprotoc_cflag} -DNDEBUG -UDEBUG")
 
 #官方的编译选项中没有此项
-set(aprotoc_cflag "${aprotoc_cflag}  -Wno-deprecated-declarations")
+set(aprotoc_cflag "${aprotoc_cflag} -Wno-deprecated-declarations -Wno-user-defined-warnings")
 
-set(aprotoc_cxxflag "${aprotoc_cflag} -std=gnu++14"
-        )
+set(aprotoc_cxxflag "${aprotoc_cflag} -std=gnu++14")
+
+set(aprotoc_cxxflag "${aprotoc_cxxflag}")
 
 include_directories(
         ${protobuf_header}

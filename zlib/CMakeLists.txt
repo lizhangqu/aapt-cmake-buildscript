@@ -28,9 +28,7 @@ include_directories(
         ${zlib_header}
 )
 
-set(zlib_cflag
-        "-O3 -DUSE_MMAP -DZLIB_CONST -Wall -Werror"
-        )
+set(zlib_cflag "-O3 -DUSE_MMAP -DZLIB_CONST -Wall -Werror")
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(zlib_cflag "${zlib_cflag} -DNDEBUG -UDEBUG")

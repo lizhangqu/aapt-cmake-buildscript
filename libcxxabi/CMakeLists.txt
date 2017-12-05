@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.8)
 project(libcxxabi)
 
-if(UNIX AND NOT APPLE)
-    SET (CMAKE_C_COMPILER "/usr/bin/clang")
-    SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
-endif()
+if (UNIX AND NOT APPLE)
+    SET(CMAKE_C_COMPILER "/usr/bin/clang")
+    SET(CMAKE_CXX_COMPILER "/usr/bin/clang++")
+endif ()
 
 set(libcxxabi_sources
         ${CMAKE_SOURCE_DIR}/external/libcxxabi/src/abort_message.cpp
@@ -30,19 +30,18 @@ set(libcxxabi_sources
 
 set(libcxxabi_cflag "")
 
-#启libcxx
+#启用libcxx
 set(libcxxabi_cflag "${libcxxabi_cflag} ${global_libcxx_cxxflags}")
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(libcxxabi_cflag "${libcxxabi_cflag} -DNDEBUG -UDEBUG")
 
-set(libcxxabi_cxxflag
-        "${libcxxabi_cflag} -std=gnu++14 -fexceptions -Wall -Wextra -Wno-unused-function -Werror"
-        )
+set(libcxxabi_cxxflag "${libcxxabi_cflag} -std=gnu++14 -fexceptions -Wall -Wextra -Wno-unused-function -Werror")
 
 include_directories(
         ${libcxx_header}
         ${libcxxabi_header}
+        ${compiler_rt_header}
 )
 
 set(CMAKE_C_FLAGS ${libcxxabi_cflag})

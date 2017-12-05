@@ -81,6 +81,9 @@ set(global_libcxx_cxxflags "-nostdinc++ -DLIBCXX_BUILDING_LIBCXXABI -D_LIBCPP_BU
 
 MESSAGE(STATUS "当前CMAKE_SOURCE_DIR目录: ${CMAKE_SOURCE_DIR}")
 #添加子目录构建脚本
+add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/libcxx)
+add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/libcxxabi)
+add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/compiler-rt)
 add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/zlib)
 add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/libpng)
 add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/androidfw)
@@ -92,5 +95,8 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/libcutils)
 add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/libutils)
 add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/protobuf/libprotobuf-cpp-lite)
 add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/protobuf/aprotoc)
+add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/aapt_static)
 add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/aapt)
+add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/aapt2_static)
 add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/aapt2)
+

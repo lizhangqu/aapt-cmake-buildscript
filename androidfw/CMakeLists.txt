@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.8)
 project(androidfw)
 
-if(UNIX AND NOT APPLE)
-    SET (CMAKE_C_COMPILER "/usr/bin/clang")
-    SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
-endif()
+if (UNIX AND NOT APPLE)
+    SET(CMAKE_C_COMPILER "/usr/bin/clang")
+    SET(CMAKE_CXX_COMPILER "/usr/bin/clang++")
+endif ()
 
 set(androidfw_sources
         ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/AssetManager2.cpp
@@ -25,20 +25,23 @@ set(androidfw_sources
         ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/ApkAssets.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/LoadedArsc.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/ResourceUtils.cpp
+        ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/Helper.cpp
         )
 
-set(androidfw_cflag
-        "-Werror -Wall -Wunused -Wunreachable-code -DSTATIC_ANDROIDFW_FOR_TOOLS"
-        )
+set(androidfw_cflag "-Werror -Wall -Wunused -Wunreachable-code -DSTATIC_ANDROIDFW_FOR_TOOLS")
+
+#启用libcxx
+set(androidfw_cflag "${androidfw_cflag} ${global_libcxx_cxxflags}")
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(androidfw_cflag "${androidfw_cflag} -DNDEBUG -UDEBUG")
 
-set(androidfw_cxxflag
-        "${androidfw_cflag} -std=gnu++14"
-        )
+set(androidfw_cxxflag "${androidfw_cflag} -std=gnu++14")
 
 include_directories(
+        ${libcxx_header}
+        ${libcxxabi_header}
+        ${compiler_rt_header}
         ${androidfw_header}
         ${base_header}
         ${libziparchive_header}
@@ -52,4 +55,4 @@ include_directories(
 set(CMAKE_C_FLAGS ${androidfw_cflag})
 set(CMAKE_CXX_FLAGS ${androidfw_cxxflag})
 add_library(androidfw STATIC ${androidfw_sources})
-target_link_libraries(androidfw ziparchive base log cutils utils zlib)
+target_link_libraries(androidfw ziparchive base log cutils utils zlib cxx cxxabi compiler_rt)

@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.8)
 project(compiler-rt)
 
-if(UNIX AND NOT APPLE)
-    SET (CMAKE_C_COMPILER "/usr/bin/clang")
-    SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
-endif()
+if (UNIX AND NOT APPLE)
+    SET(CMAKE_C_COMPILER "/usr/bin/clang")
+    SET(CMAKE_CXX_COMPILER "/usr/bin/clang++")
+endif ()
 
 set(compiler_rt_sources
         ${CMAKE_SOURCE_DIR}/external/compiler-rt/lib/builtins/enable_execute_stack.c
@@ -160,9 +160,7 @@ set(compiler_rt_cflag "-Wno-unused-parameter -Werror")
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(compiler_rt_cflag "${compiler_rt_cflag} -DNDEBUG -UDEBUG")
 
-set(compiler_rt_cxxflag
-        "${compiler_rt_cflag} -std=c++14"
-        )
+set(compiler_rt_cxxflag "${compiler_rt_cflag} -std=c++14")
 
 include_directories(
         ${compiler_rt_header}

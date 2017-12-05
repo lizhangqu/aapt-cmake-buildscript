@@ -32,9 +32,10 @@ set(libprotobuf_sources
         ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.cc
         )
 
-set(libprotobuf_cflag
-        "-Wno-sign-compare -Wno-unused-parameter -Wno-sign-promo -Wno-error=return-type -DGOOGLE_PROTOBUF_NO_RTTI"
-        )
+set(libprotobuf_cflag "-Wno-sign-compare -Wno-unused-parameter -Wno-sign-promo -Wno-error=return-type -DGOOGLE_PROTOBUF_NO_RTTI")
+
+#启用libcxx
+set(libprotobuf_cflag "${libprotobuf_cflag} ${global_libcxx_cxxflags}")
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(libprotobuf_cflag "${libprotobuf_cflag} -DNDEBUG -UDEBUG")
@@ -46,6 +47,9 @@ set(libprotobuf_cxxflag "${libprotobuf_cflag} -std=gnu++14"
         )
 
 include_directories(
+        ${libcxx_header}
+        ${libcxxabi_header}
+        ${compiler_rt_header}
         ${protobuf_header}
 )
 
