@@ -29,6 +29,10 @@ set(aapt_cflag "${aapt_cflag} ${global_libcxx_cxxflags} -Wno-unused-command-line
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(aapt_cflag "${aapt_cflag} -DNDEBUG -UDEBUG")
 
+string(TIMESTAMP AAPT_VERSION "%Y%m%d%H%M%S")
+set(aapt_cflag "${aapt_cflag} -DAAPT_VERSION=\\\"${AAPT_VERSION}\\\"")
+
+
 if(APPLE)
     set(aapt_cflag "${aapt_cflag} -D_DARWIN_UNLIMITED_STREAMS")
 endif()
