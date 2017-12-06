@@ -87,6 +87,10 @@ set(aapt2_static_sources
 
 set(aapt2_static_cflag "-Werror -Wall -Wno-unused-parameter")
 
+if(UNIX AND NOT APPLE)
+    set(aapt2_static_cflag "${aapt2_static_cflag} -Wno-unused-variable")
+endif()
+
 #启用libcxx
 set(aapt2_static_cflag "${aapt2_static_cflag} ${global_libcxx_cxxflags}")
 
@@ -118,6 +122,7 @@ include_directories(
         ${native_header}
         ${aapt2_header}
         ${libpng_header}
+        ${expat_header}
         #生成的文件头文件
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/frameworks/base/tools/aapt2/
 )

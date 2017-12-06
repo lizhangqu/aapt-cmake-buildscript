@@ -56,3 +56,7 @@ include_directories(
 set(CMAKE_C_FLAGS ${libcxx_cflag})
 set(CMAKE_CXX_FLAGS ${libcxx_cxxflag})
 add_library(cxx STATIC ${libcxx_sources})
+
+if(UNIX AND NOT APPLE)
+    target_link_libraries(cxx rt pthread dl)
+endif()

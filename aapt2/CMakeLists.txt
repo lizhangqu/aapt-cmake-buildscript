@@ -56,6 +56,7 @@ include_directories(
         ${native_header}
         ${aapt2_header}
         ${libpng_header}
+        ${expat_header}
 )
 
 set(CMAKE_C_FLAGS ${aapt2_cflag})
