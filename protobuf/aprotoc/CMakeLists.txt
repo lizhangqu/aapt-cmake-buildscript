@@ -161,7 +161,12 @@ set(aprotoc_cflag "${aprotoc_cflag} ${global_libcxx_cxxflags} -Wno-unused-comman
 set(aprotoc_cflag "${aprotoc_cflag} -DNDEBUG -UDEBUG")
 
 #官方的编译选项中没有此项
-set(aprotoc_cflag "${aprotoc_cflag} -Wno-deprecated-declarations -Wno-user-defined-warnings")
+set(aprotoc_cflag "${aprotoc_cflag} -Wno-deprecated-declarations")
+
+#官方的编译选项中没有此项
+if (APPLE)
+    set(aprotoc_cflag "${aprotoc_cflag} -Wno-user-defined-warnings")
+endif ()
 
 set(aprotoc_cxxflag "${aprotoc_cflag} -std=gnu++14")
 
