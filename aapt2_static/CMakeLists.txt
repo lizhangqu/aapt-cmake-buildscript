@@ -23,13 +23,16 @@ set(aapt2_static_sources
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/compile/Pseudolocalizer.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/compile/XmlIdCollector.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/configuration/ConfigurationParser.cpp
+        ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/filter/AbiFilter.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/filter/ConfigFilter.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/flatten/Archive.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/flatten/TableFlattener.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/flatten/XmlFlattener.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/io/BigBufferStreams.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/io/File.cpp
+        ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/io/FileInputStream.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/io/FileSystem.cpp
+        ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/io/StringInputStream.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/io/Util.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/io/ZipArchive.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/link/AutoVersioner.cpp
@@ -48,6 +51,8 @@ set(aapt2_static_sources
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/proto/TableProtoDeserializer.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/proto/TableProtoSerializer.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/split/TableSplitter.cpp
+        ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/text/Unicode.cpp
+        ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/text/Utf8Iterator.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/unflatten/BinaryResourceParser.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/unflatten/ResChunkPullParser.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/util/BigBuffer.cpp
@@ -75,7 +80,9 @@ set(aapt2_static_sources
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/xml/XmlDom.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/xml/XmlPullParser.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/xml/XmlUtil.cpp
-        ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/Format.pb.cc
+        #生成的文件在这个目录
+        ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/frameworks/base/tools/aapt2/Resources.pb.cc
+        ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/frameworks/base/tools/aapt2/ResourcesInternal.pb.cc
         )
 
 set(aapt2_static_cflag "-Werror -Wall -Wno-unused-parameter")
@@ -111,6 +118,8 @@ include_directories(
         ${native_header}
         ${aapt2_header}
         ${libpng_header}
+        #生成的文件头文件
+        ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/frameworks/base/tools/aapt2/
 )
 
 set(CMAKE/C_FLAGS ${aapt2_static_cflag})
@@ -123,9 +132,9 @@ MESSAGE(STATUS "如果在cmake里调用aprotoc将.proto文件转为.cc和.h时�
 MESSAGE(STATUS "======================================命令开始======================================")
 MESSAGE(STATUS "cd ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2 && ${CMAKE_BINARY_DIR}/buildscript/protobuf/aprotoc/aprotoc --cpp_out=. Format.proto")
 MESSAGE(STATUS "======================================命令结束======================================")
-add_custom_target(format_pb_h
-        WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2"
-        COMMAND ${CMAKE_BINARY_DIR}/buildscript/protobuf/aprotoc/aprotoc --cpp_out=. Format.proto
+add_custom_target(protobuffer_h
+        WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
+        COMMAND ${CMAKE_BINARY_DIR}/buildscript/protobuf/aprotoc/aprotoc frameworks/base/tools/aapt2/Resources.proto frameworks/base/tools/aapt2/ResourcesInternal.proto  --cpp_out=frameworks/base/tools/aapt2
         DEPENDS aprotoc
         )
-add_dependencies(aapt2_static format_pb_h)
+add_dependencies(aapt2_static protobuffer_h)

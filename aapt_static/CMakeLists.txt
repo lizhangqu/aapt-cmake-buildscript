@@ -34,6 +34,9 @@ set(aapt_static_cflag
         "-Werror -Wall -Wno-format-y2k -DSTATIC_ANDROIDFW_FOR_TOOLS"
         )
 
+string(TIMESTAMP VERSION "%Y%m%d%H%M%S")
+set(aapt_static_cflag "${aapt_static_cflag} -DAAPT_VERSION=\\\"${VERSION}\\\"")
+
 #启用libcxx
 set(aapt_static_cflag "${aapt_static_cflag} ${global_libcxx_cxxflags}")
 

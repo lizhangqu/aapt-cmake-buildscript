@@ -27,6 +27,9 @@ include_directories(
 
 set(base_cflag "-Wall -Werror -Wextra")
 
+#aosp没有此编译选项
+set(base_cflag "${base_cflag} -Wno-deprecated-declarations")
+
 #启用libcxx
 set(base_cflag "${base_cflag} ${global_libcxx_cxxflags}")
 

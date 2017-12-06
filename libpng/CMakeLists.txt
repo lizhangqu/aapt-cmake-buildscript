@@ -22,8 +22,8 @@ set(libpng_sources
         ${CMAKE_SOURCE_DIR}/external/libpng/pngwrite.c
         ${CMAKE_SOURCE_DIR}/external/libpng/pngwtran.c
         ${CMAKE_SOURCE_DIR}/external/libpng/pngwutil.c
-        ${CMAKE_SOURCE_DIR}/external/libpng/intel/intel_init.c
-        ${CMAKE_SOURCE_DIR}/external/libpng/intel/filter_sse2_intrinsics.c
+        ${CMAKE_SOURCE_DIR}/external/libpng/contrib/intel/intel_init.c
+        ${CMAKE_SOURCE_DIR}/external/libpng/contrib/intel/filter_sse2_intrinsics.c
         )
 
 include_directories(
