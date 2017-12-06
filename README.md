@@ -55,11 +55,3 @@ cmake --build "./build-cmake" --target aapt
 cmake --build "./build-cmake" --target aapt2
 ```
 
-其中aapt2依赖了format_pb_h，如果aapt2构建失败，请先手动构建format_pb_h
-
-```
-cmake --build "./build-cmake" --target format_pb_h
-cmake --build "./build-cmake" --target aapt2
-```
-
-
