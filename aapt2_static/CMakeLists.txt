@@ -133,10 +133,6 @@ set(CMAKE_CXX_FLAGS ${aapt2_static_cxxflag})
 add_library(aapt2_static STATIC ${aapt2_static_sources})
 target_link_libraries(aapt2_static expat androidfw base cutils log png utils ziparchive zlib protobuf cxx cxxabi compiler_rt)
 
-MESSAGE(STATUS "如果在cmake里调用aprotoc将.proto文件转为.cc和.h时会出现找不到文件的问题，将对应命令拷贝到命令行执行，生成Format.pb.cc和Format.pb.h")
-MESSAGE(STATUS "======================================命令开始======================================")
-MESSAGE(STATUS "cd ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2 && ${CMAKE_BINARY_DIR}/buildscript/protobuf/aprotoc/aprotoc --cpp_out=. Format.proto")
-MESSAGE(STATUS "======================================命令结束======================================")
 add_custom_target(protobuffer_h
         WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
         COMMAND ${CMAKE_BINARY_DIR}/buildscript/protobuf/aprotoc/aprotoc frameworks/base/tools/aapt2/Resources.proto frameworks/base/tools/aapt2/ResourcesInternal.proto  --cpp_out=frameworks/base/tools/aapt2
