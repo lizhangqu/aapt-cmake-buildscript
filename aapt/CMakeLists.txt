@@ -22,6 +22,7 @@ set(aapt_sources
         )
 
 set(aapt_cflag "-Werror -Wall -Wno-format-y2k -DSTATIC_ANDROIDFW_FOR_TOOLS")
+set(aapt_cflag "${aapt_cflag} -fPIC")
 
 #启用libcxx
 set(aapt_cflag "${aapt_cflag} ${global_libcxx_cxxflags} -Wno-unused-command-line-argument")

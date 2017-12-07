@@ -31,6 +31,8 @@ set(libutils_sources
 
 set(libutils_cflag "-Wall -Werror -DLIBUTILS_NATIVE=1")
 
+set(libutils_cflag "${libutils_cflag} -fPIC")
+
 #aosp中没有此编译选项
 set(libutils_cflag "${libutils_cflag} -Wno-unused-private-field -Wno-unused-variable")
 

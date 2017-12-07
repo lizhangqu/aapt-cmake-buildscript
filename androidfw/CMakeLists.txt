@@ -30,6 +30,8 @@ set(androidfw_sources
 
 set(androidfw_cflag "-Werror -Wall -Wunused -Wunreachable-code -DSTATIC_ANDROIDFW_FOR_TOOLS")
 
+set(androidfw_cflag "${androidfw_cflag} -fPIC")
+
 #启用libcxx
 set(androidfw_cflag "${androidfw_cflag} ${global_libcxx_cxxflags}")
 

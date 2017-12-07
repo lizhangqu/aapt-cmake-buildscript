@@ -32,6 +32,8 @@ include_directories(
 
 set(libpng_cflag "-std=gnu89 -Wall -Werror -Wno-unused-parameter -DPNG_INTEL_SSE_OPT=1")
 
+set(libpng_cflag "${libpng_cflag} -fPIC")
+
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(libpng_cflag "${libpng_cflag} -DNDEBUG -UDEBUG")
 

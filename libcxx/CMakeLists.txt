@@ -39,6 +39,8 @@ set(libcxx_sources
 
 set(libcxx_cflag "")
 
+set(libcxx_cflag "${libcxx_cflag} -fPIC")
+
 #启用libcxx
 set(libcxx_cflag "${libcxx_cflag} ${global_libcxx_cxxflags}")
 

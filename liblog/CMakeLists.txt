@@ -29,6 +29,8 @@ set(liblog_host_sources
 
 set(liblog_cflag "-DFAKE_LOG_DEVICE=1 -Werror -fvisibility=hidden -DLIBLOG_LOG_TAG=1006 -DSNET_EVENT_LOG_TAG=1397638484")
 
+set(liblog_cflag "${liblog_cflag} -fPIC")
+
 #启用libcxx
 set(liblog_cflag "${liblog_cflag} ${global_libcxx_cxxflags}")
 

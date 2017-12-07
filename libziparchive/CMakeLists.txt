@@ -15,6 +15,8 @@ set(libziparchive_sources
 
 set(libziparchive_cflag "-DZLIB_CONST -Werror -Wall -D_FILE_OFFSET_BITS=64")
 
+set(libziparchive_cflag "${libziparchive_cflag} -fPIC")
+
 #启用libcxx
 set(libziparchive_cflag "${libziparchive_cflag} ${global_libcxx_cxxflags}")
 

@@ -27,6 +27,8 @@ include_directories(
 
 set(base_cflag "-Wall -Werror -Wextra")
 
+set(base_cflag "${base_cflag} -fPIC")
+
 #aosp没有此编译选项
 set(base_cflag "${base_cflag} -Wno-deprecated-declarations")
 

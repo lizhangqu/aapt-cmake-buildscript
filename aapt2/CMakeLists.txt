@@ -22,6 +22,8 @@ set(aapt2_sources
 
 set(aapt2_cflag "-Werror -Wall -Wno-unused-parameter")
 
+set(aapt2_cflag "${aapt2_cflag} -fPIC")
+
 #启用libcxx
 set(aapt2_cflag "${aapt2_cflag} ${global_libcxx_cxxflags} -Wno-unused-command-line-argument")
 

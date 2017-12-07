@@ -154,6 +154,8 @@ set(aprotoc_sources
 
 set(aprotoc_cflag "-Wall -Wno-error=format -Wno-error=format-extra-args -Wno-error=ignored-qualifiers -Wno-error=sign-promo -Wno-unused-function -Werror -Wno-sign-compare -Wno-unused-parameter -Wno-sign-promo -Wno-error=return-type")
 
+set(aprotoc_cflag "${aprotoc_cflag} -fPIC")
+
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(aprotoc_cflag "${aprotoc_cflag} -DNDEBUG -UDEBUG")
 

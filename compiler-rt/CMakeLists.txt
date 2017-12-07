@@ -158,6 +158,8 @@ set(compiler_rt_sources
 
 set(compiler_rt_cflag "-Wno-unused-parameter -Werror")
 
+set(compiler_rt_cflag "${compiler_rt_cflag} -fPIC")
+
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(compiler_rt_cflag "${compiler_rt_cflag} -DNDEBUG -UDEBUG")
 
