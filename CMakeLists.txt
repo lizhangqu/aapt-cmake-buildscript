@@ -68,7 +68,7 @@ set(libziparchive_header
         ${CMAKE_SOURCE_DIR}/system/core/libziparchive/include
         )
 set(libnativehelper_header
-        ${CMAKE_SOURCE_DIR}/platform/libnativehelper/include_jni
+        ${CMAKE_SOURCE_DIR}/libnativehelper/include_jni
         )
 #aapt头文件
 set(aapt_header
