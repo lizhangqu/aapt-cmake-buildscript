@@ -67,6 +67,9 @@ set(libziparchive_header
         ${CMAKE_SOURCE_DIR}/system/core/libziparchive
         ${CMAKE_SOURCE_DIR}/system/core/libziparchive/include
         )
+set(libnativehelper_header
+        ${CMAKE_SOURCE_DIR}/platform/libnativehelper/include_jni
+        )
 #aapt头文件
 set(aapt_header
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt
@@ -99,4 +102,5 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/aapt_static)
 add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/aapt)
 add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/aapt2_static)
 add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/aapt2)
+add_subdirectory(${CMAKE_SOURCE_DIR}/buildscript/aapt2_jni)
 

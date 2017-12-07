@@ -20,7 +20,7 @@ set(aapt2_sources
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/Main.cpp
         )
 
-set(aapt2_cflag "-Werror -Wall -Wno-unused-parameter ${global_libcxx_cxxflags}")
+set(aapt2_cflag "-Werror -Wall -Wno-unused-parameter")
 
 #启用libcxx
 set(aapt2_cflag "${aapt2_cflag} ${global_libcxx_cxxflags} -Wno-unused-command-line-argument")
