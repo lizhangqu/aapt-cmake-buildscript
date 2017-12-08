@@ -39,8 +39,10 @@ set(aapt_static_cflag "${aapt_static_cflag} -fPIC")
 string(TIMESTAMP VERSION "%Y%m%d%H%M%S")
 set(aapt_static_cflag "${aapt_static_cflag} -DAAPT_VERSION=\\\"${VERSION}\\\"")
 
-#启用libcxx
-set(aapt_static_cflag "${aapt_static_cflag} ${global_libcxx_cxxflags}")
+if(UNIX AND NOT APPLE)
+    #启用libcxx
+    set(aapt_static_cflag "${aapt_static_cflag} ${global_libcxx_cxxflags}")
+endif()
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(aapt_static_cflag "${aapt_static_cflag} -DNDEBUG -UDEBUG")
@@ -52,9 +54,6 @@ endif ()
 set(aapt_static_cxxflag "${aapt_static_cflag} -std=gnu++14")
 
 include_directories(
-        ${libcxx_header}
-        ${libcxxabi_header}
-        ${compiler_rt_header}
         ${aapt_header}
         ${androidfw_header}
         ${libpng_header}
@@ -69,9 +68,21 @@ include_directories(
         ${native_header}
 )
 
+#mac不参与下面三个库的编译，否则libaapt2_jni有问题
+if(UNIX AND NOT APPLE)
+    include_directories(
+            ${libcxx_header}
+            ${libcxxabi_header}
+            ${compiler_rt_header}
+    )
+endif()
+
 set(CMAKE_C_FLAGS ${aapt_static_cflag})
 set(CMAKE_CXX_FLAGS ${aapt_static_cxxflag})
 
 add_library(aapt_static STATIC ${aapt_static_sources})
-target_link_libraries(aapt_static androidfw png utils log cutils expat ziparchive base zlib cxx cxxabi compiler_rt)
+target_link_libraries(aapt_static androidfw png utils log cutils expat ziparchive base zlib)
 
+if(UNIX AND NOT APPLE)
+    target_link_libraries(aapt_static cxx cxxabi compiler_rt)
+endif()

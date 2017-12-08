@@ -43,8 +43,10 @@ set(libcutils_cflag "${libcutils_cflag} -fPIC")
 #aosp中没有此编译选项
 set(libcutils_cflag "${libcutils_cflag} -Wno-deprecated-declarations")
 
-#启用libcxx
-set(libcutils_cflag "${libcutils_cflag} ${global_libcxx_cxxflags}")
+if(UNIX AND NOT APPLE)
+    #启用libcxx
+    set(libcutils_cflag "${libcutils_cflag} ${global_libcxx_cxxflags}")
+endif()
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(libcutils_cflag "${libcutils_cflag} -DNDEBUG -UDEBUG")
@@ -52,13 +54,19 @@ set(libcutils_cflag "${libcutils_cflag} -DNDEBUG -UDEBUG")
 set(libcutils_cxxflag "${libcutils_cflag} -std=gnu++14")
 
 include_directories(
-        ${libcxx_header}
-        ${libcxxabi_header}
-        ${compiler_rt_header}
         ${libcutils_header}
         ${libutils_header}
         ${liblog_header}
 )
+
+#mac不参与下面三个库的编译，否则libaapt2_jni有问题
+if(UNIX AND NOT APPLE)
+    include_directories(
+            ${libcxx_header}
+            ${libcxxabi_header}
+            ${compiler_rt_header}
+    )
+endif()
 
 set(CMAKE_C_FLAGS ${libcutils_cflag})
 set(CMAKE_CXX_FLAGS ${libcutils_cxxflag})

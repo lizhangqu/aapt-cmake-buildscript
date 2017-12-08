@@ -32,8 +32,10 @@ set(androidfw_cflag "-Werror -Wall -Wunused -Wunreachable-code -DSTATIC_ANDROIDF
 
 set(androidfw_cflag "${androidfw_cflag} -fPIC")
 
-#启用libcxx
-set(androidfw_cflag "${androidfw_cflag} ${global_libcxx_cxxflags}")
+if(UNIX AND NOT APPLE)
+    #启用libcxx
+    set(androidfw_cflag "${androidfw_cflag} ${global_libcxx_cxxflags}")
+endif()
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(androidfw_cflag "${androidfw_cflag} -DNDEBUG -UDEBUG")
@@ -41,9 +43,6 @@ set(androidfw_cflag "${androidfw_cflag} -DNDEBUG -UDEBUG")
 set(androidfw_cxxflag "${androidfw_cflag} -std=gnu++14")
 
 include_directories(
-        ${libcxx_header}
-        ${libcxxabi_header}
-        ${compiler_rt_header}
         ${androidfw_header}
         ${base_header}
         ${libziparchive_header}
@@ -54,7 +53,20 @@ include_directories(
         ${native_header}
 )
 
+#mac不参与下面三个库的编译，否则libaapt2_jni有问题
+if(UNIX AND NOT APPLE)
+    include_directories(
+            ${libcxx_header}
+            ${libcxxabi_header}
+            ${compiler_rt_header}
+    )
+endif()
+
 set(CMAKE_C_FLAGS ${androidfw_cflag})
 set(CMAKE_CXX_FLAGS ${androidfw_cxxflag})
 add_library(androidfw STATIC ${androidfw_sources})
-target_link_libraries(androidfw ziparchive base log cutils utils zlib cxx cxxabi compiler_rt)
+target_link_libraries(androidfw ziparchive base log cutils utils zlib)
+
+if(UNIX AND NOT APPLE)
+    target_link_libraries(androidfw cxx cxxabi compiler_rt)
+endif()

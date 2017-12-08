@@ -172,7 +172,6 @@ set(aprotoc_cxxflag "${aprotoc_cflag} -std=gnu++14")
 set(aprotoc_cxxflag "${aprotoc_cxxflag}")
 
 include_directories(
-        ${compiler_rt_header}
         ${protobuf_header}
 )
 

@@ -17,8 +17,12 @@ set(libziparchive_cflag "-DZLIB_CONST -Werror -Wall -D_FILE_OFFSET_BITS=64")
 
 set(libziparchive_cflag "${libziparchive_cflag} -fPIC")
 
-#启用libcxx
-set(libziparchive_cflag "${libziparchive_cflag} ${global_libcxx_cxxflags}")
+
+if(UNIX AND NOT APPLE)
+    #启用libcxx
+    set(libziparchive_cflag "${libziparchive_cflag} ${global_libcxx_cxxflags}")
+endif()
+
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(libziparchive_cflag "${libziparchive_cflag} -DNDEBUG -UDEBUG")
@@ -26,14 +30,20 @@ set(libziparchive_cflag "${libziparchive_cflag} -DNDEBUG -UDEBUG")
 set(libziparchive_cxxflag "${libziparchive_cflag} -std=gnu++14 -Wold-style-cast -Wno-missing-field-initializers")
 
 include_directories(
-        ${libcxx_header}
-        ${libcxxabi_header}
-        ${compiler_rt_header}
         ${libziparchive_header}
         ${base_header}
         ${liblog_header}
         ${libutils_header}
 )
+
+#mac不参与下面三个库的编译，否则libaapt2_jni有问题
+if(UNIX AND NOT APPLE)
+    include_directories(
+            ${libcxx_header}
+            ${libcxxabi_header}
+            ${compiler_rt_header}
+    )
+endif()
 
 set(CMAKE_C_FLAGS ${libziparchive_cflag})
 set(CMAKE_CXX_FLAGS ${libziparchive_cxxflag})

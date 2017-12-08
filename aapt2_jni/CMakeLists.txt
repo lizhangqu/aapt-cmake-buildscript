@@ -14,8 +14,10 @@ set(aapt2_jni_cflag "-Werror -Wall -Wno-unused-parameter")
 
 set(aapt2_jni_cflag "${aapt2_jni_cflag} -fPIC")
 
-#启用libcxx
-set(aapt2_jni_cflag "${aapt2_jni_cflag} ${global_libcxx_cxxflags} -Wno-unused-command-line-argument")
+if(UNIX AND NOT APPLE)
+    #启用libcxx
+    set(aapt2_jni_cflag "${aapt2_jni_cflag} ${global_libcxx_cxxflags} -Wno-unused-command-line-argument")
+endif()
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(aapt2_jni_cflag "${aapt2_jni_cflag} -DNDEBUG -UDEBUG")
@@ -31,9 +33,6 @@ set(aapt2_jni_cflag "${aapt2_jni_cflag} -Wno-deprecated-declarations")
 set(aapt2_jni_cxxflag "${aapt2_jni_cflag} -std=gnu++14 -Wno-missing-field-initializers -fno-exceptions")
 
 include_directories(
-        ${libcxx_header}
-        ${libcxxabi_header}
-        ${compiler_rt_header}
         ${protobuf_header}
         ${androidfw_header}
         ${base_header}
@@ -50,8 +49,21 @@ include_directories(
         ${libnativehelper_header}
 )
 
+#mac不参与下面三个库的编译，否则libaapt2_jni有问题
+if(UNIX AND NOT APPLE)
+    include_directories(
+            ${libcxx_header}
+            ${libcxxabi_header}
+            ${compiler_rt_header}
+    )
+endif()
+
 set(CMAKE_C_FLAGS ${aapt2_jni_cflag})
 set(CMAKE_CXX_FLAGS ${aapt2_jni_cxxflag})
 
 add_library(aapt2_jni SHARED ${aapt2_jni_sources})
-target_link_libraries(aapt2_jni aapt2_static expat androidfw base cutils log png utils ziparchive zlib protobuf cxx cxxabi compiler_rt)
+target_link_libraries(aapt2_jni aapt2_static expat androidfw base cutils log png utils ziparchive zlib protobuf)
+
+if(UNIX AND NOT APPLE)
+    target_link_libraries(aapt2 cxx cxxabi compiler_rt)
+endif()

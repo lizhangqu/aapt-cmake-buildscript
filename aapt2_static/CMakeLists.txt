@@ -93,8 +93,10 @@ if(UNIX AND NOT APPLE)
     set(aapt2_static_cflag "${aapt2_static_cflag} -Wno-unused-variable")
 endif()
 
-#启用libcxx
-set(aapt2_static_cflag "${aapt2_static_cflag} ${global_libcxx_cxxflags}")
+if(UNIX AND NOT APPLE)
+    #启用libcxx
+    set(aapt2_static_cflag "${aapt2_static_cflag} ${global_libcxx_cxxflags}")
+endif()
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(aapt2_static_cflag "${aapt2_static_cflag} -DNDEBUG -UDEBUG")
@@ -109,9 +111,6 @@ set(aapt2_static_cflag "${aapt2_static_cflag} -Wno-deprecated-declarations")
 set(aapt2_static_cxxflag "${aapt2_static_cflag} -std=gnu++14 -Wno-missing-field-initializers -fno-exceptions")
 
 include_directories(
-        ${libcxx_header}
-        ${libcxxabi_header}
-        ${compiler_rt_header}
         ${protobuf_header}
         ${androidfw_header}
         ${base_header}
@@ -129,11 +128,25 @@ include_directories(
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/frameworks/base/tools/aapt2/
 )
 
+#mac不参与下面三个库的编译，否则libaapt2_jni有问题
+if(UNIX AND NOT APPLE)
+    include_directories(
+            ${libcxx_header}
+            ${libcxxabi_header}
+            ${compiler_rt_header}
+    )
+endif()
+
+
 set(CMAKE/C_FLAGS ${aapt2_static_cflag})
 set(CMAKE_CXX_FLAGS ${aapt2_static_cxxflag})
 
 add_library(aapt2_static STATIC ${aapt2_static_sources})
-target_link_libraries(aapt2_static expat androidfw base cutils log png utils ziparchive zlib protobuf cxx cxxabi compiler_rt)
+target_link_libraries(aapt2_static expat androidfw base cutils log png utils ziparchive zlib protobuf)
+
+if(UNIX AND NOT APPLE)
+    target_link_libraries(aapt2_static cxx cxxabi compiler_rt)
+endif()
 
 add_custom_target(protobuffer_h
         WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"

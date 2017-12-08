@@ -36,8 +36,10 @@ set(libutils_cflag "${libutils_cflag} -fPIC")
 #aosp中没有此编译选项
 set(libutils_cflag "${libutils_cflag} -Wno-unused-private-field -Wno-unused-variable")
 
-#启用libcxx
-set(libutils_cflag "${libutils_cflag} ${global_libcxx_cxxflags}")
+if(UNIX AND NOT APPLE)
+    #启用libcxx
+    set(libutils_cflag "${libutils_cflag} ${global_libcxx_cxxflags}")
+endif()
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(libutils_cflag "${libutils_cflag} -DNDEBUG -UDEBUG")
@@ -57,9 +59,6 @@ endif()
 set(libutils_cxxflag "${libutils_cflag} -std=gnu++14")
 
 include_directories(
-        ${libcxx_header}
-        ${libcxxabi_header}
-        ${compiler_rt_header}
         ${libutils_header}
         ${safe_iop_header}
         ${liblog_header}
@@ -67,6 +66,15 @@ include_directories(
         ${libcutils_header}
         ${libsystem_header}
 )
+
+#mac不参与下面三个库的编译，否则libaapt2_jni有问题
+if(UNIX AND NOT APPLE)
+    include_directories(
+            ${libcxx_header}
+            ${libcxxabi_header}
+            ${compiler_rt_header}
+    )
+endif()
 
 set(CMAKE_C_FLAGS ${libutils_cflag})
 set(CMAKE_CXX_FLAGS ${libutils_cxxflag})

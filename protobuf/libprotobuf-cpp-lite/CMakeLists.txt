@@ -36,8 +36,10 @@ set(libprotobuf_cflag "-Wno-sign-compare -Wno-unused-parameter -Wno-sign-promo -
 
 set(libprotobuf_cflag "${libprotobuf_cflag} -fPIC")
 
-#启用libcxx
-set(libprotobuf_cflag "${libprotobuf_cflag} ${global_libcxx_cxxflags}")
+if(UNIX AND NOT APPLE)
+    #启用libcxx
+    set(libprotobuf_cflag "${libprotobuf_cflag} ${global_libcxx_cxxflags}")
+endif()
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(libprotobuf_cflag "${libprotobuf_cflag} -DNDEBUG -UDEBUG")
@@ -49,11 +51,17 @@ set(libprotobuf_cxxflag "${libprotobuf_cflag} -std=gnu++14"
         )
 
 include_directories(
-        ${libcxx_header}
-        ${libcxxabi_header}
-        ${compiler_rt_header}
         ${protobuf_header}
 )
+
+#mac不参与下面三个库的编译，否则libaapt2_jni有问题
+if(UNIX AND NOT APPLE)
+    include_directories(
+            ${libcxx_header}
+            ${libcxxabi_header}
+            ${compiler_rt_header}
+    )
+endif()
 
 set(CMAKE_C_FLAGS ${libprotobuf_cflag})
 set(CMAKE_CXX_FLAGS ${libprotobuf_cxxflag})
