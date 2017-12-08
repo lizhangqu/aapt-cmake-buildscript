@@ -72,7 +72,7 @@ set(CMAKE_C_FLAGS ${aapt_cflag})
 set(CMAKE_CXX_FLAGS ${aapt_cxxflag})
 
 add_executable(aapt ${aapt_sources})
-target_link_libraries(aapt aapt_static androidfw png utils log cutils expat ziparchive base zlib cxx cxxabi compiler_rt)
+target_link_libraries(aapt aapt_static androidfw png utils log cutils expat ziparchive base zlib)
 
 if(UNIX AND NOT APPLE)
     target_link_libraries(aapt cxx cxxabi compiler_rt)
