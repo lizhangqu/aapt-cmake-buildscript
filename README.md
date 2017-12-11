@@ -63,9 +63,9 @@ cd /Volumes/aapt
 #使用cmake生产构建文件，并最小化编译产物
 cmake -H"./" -B"./build-cmake" -DCMAKE_BUILD_TYPE=MinSizeRel
 #编译aapt
-cmake --build "./build-cmake" --target aapt
+cmake --build "./build-cmake" --target aapt -- -j 8
 #编译aapt2
-cmake --build "./build-cmake" --target aapt2
+cmake --build "./build-cmake" --target aapt2 -- -j 8
 #编译aapt2_jni
-cmake --build "./build-cmake" --target aapt2_jni
+cmake --build "./build-cmake" --target aapt2_jni -- -j 8
 ```
