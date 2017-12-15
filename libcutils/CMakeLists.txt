@@ -31,12 +31,31 @@ set(libcutils_sources
         ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_network_client_unix.c
         ${CMAKE_SOURCE_DIR}/system/core/libcutils/sockets_unix.cpp
         ${CMAKE_SOURCE_DIR}/system/core/libcutils/str_parms.c
-        ${CMAKE_SOURCE_DIR}/system/core/libcutils/ashmem-host.c
-        ${CMAKE_SOURCE_DIR}/system/core/libcutils/trace-host.c
         ${CMAKE_SOURCE_DIR}/system/core/libcutils/dlmalloc_stubs.c
         )
 
-set(libcutils_cflag "-Werror -Wall -Wextra -std=gnu99")
+if(WIN32)
+    set(libcutils_sources
+            ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_inaddr_any_server_windows.c
+            ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_network_client_windows.c
+            ${CMAKE_SOURCE_DIR}/system/core/libcutils/sockets_windows.cpp
+            )
+elseif(UNIX)
+    set(libcutils_sources
+            ${CMAKE_SOURCE_DIR}/system/core/libcutils/ashmem-host.c
+            ${CMAKE_SOURCE_DIR}/system/core/libcutils/trace-host.c
+            )
+endif()
+
+set(libcutils_cflag "-Werror -Wall -Wextra")
+
+if(UNIX)
+    set(libcutils_cflag "${libcutils_cflag} -std=gnu99")
+endif()
+
+if(WIN32)
+    set(libcutils_cflag "${libcutils_cflag} -D_GNU_SOURCE -Wno-error=unused-parameter")
+endif()
 
 if(UNIX)
     set(libcutils_cflag "${libcutils_cflag} -fPIC")
