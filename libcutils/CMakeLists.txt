@@ -35,13 +35,13 @@ set(libcutils_sources
         )
 
 if(WIN32)
-    set(libcutils_sources
+    list(APPEND libcutils_sources
             ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_inaddr_any_server_windows.c
             ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_network_client_windows.c
             ${CMAKE_SOURCE_DIR}/system/core/libcutils/sockets_windows.cpp
             )
 elseif(UNIX)
-    set(libcutils_sources
+    list(APPEND libcutils_sources
             ${CMAKE_SOURCE_DIR}/system/core/libcutils/ashmem-host.c
             ${CMAKE_SOURCE_DIR}/system/core/libcutils/trace-host.c
             )

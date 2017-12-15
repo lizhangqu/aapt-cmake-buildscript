@@ -17,12 +17,12 @@ set(base_sources
         )
 
 if(WIN32)
-    set(base_sources
+    list(APPEND base_sources
             ${CMAKE_SOURCE_DIR}/system/core/base/errors_windows.cpp
             ${CMAKE_SOURCE_DIR}/system/core/base/utf8.cpp
             )
 elseif(UNIX)
-    set(base_sources
+    list(APPEND base_sources
             ${CMAKE_SOURCE_DIR}/system/core/base/chrono_utils.cpp
             ${CMAKE_SOURCE_DIR}/system/core/base/errors_unix.cpp
             )
@@ -44,7 +44,7 @@ endif()
 set(base_cflag "-Wall -Werror -Wextra")
 
 if(WIN32)
-    set(base_cflag "${base_cflag} -Wno-error=unused-parameter")
+    set(base_cflag "${base_cflag} -Wno-error=unused-parameter -D__STDC_FORMAT_MACROS")
 endif()
 
 if(UNIX)
