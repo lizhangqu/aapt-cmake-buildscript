@@ -33,6 +33,16 @@ sudo apt-get install clang
 sudo apt-get install git-core gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache libgl1-mesa-dev libxml2-utils xsltproc unzip
 ```
 
+## for windows
+
+当前windows的版本只能在linux(Ubuntu 16.0.4)上进行交叉编译产生，需要安装MinGw
+
+```
+sudo apt-get install mingw-w64
+```
+
+
+
 ## 构建
 
 安装repo
@@ -71,4 +81,10 @@ cmake --build "./build-cmake" --target protobuffer_h -- -j 8
 cmake --build "./build-cmake" --target aapt2 -- -j 8
 #编译aapt2_jni
 cmake --build "./build-cmake" --target aapt2_jni -- -j 8
+```
+
+交叉编译时，指定交叉编译工具链的路径
+
+```
+cmake -H"./" -B"./build-cmake" -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_TOOLCHAIN_FILE=./windows.toolchain.cmake
 ```
