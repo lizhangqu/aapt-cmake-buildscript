@@ -28,6 +28,7 @@ set(libpng_sources
 
 include_directories(
         ${libpng_header}
+        ${zlib_header}
 )
 
 set(libpng_cflag "-std=gnu89 -Wall -Werror -Wno-unused-parameter -DPNG_INTEL_SSE_OPT=1")
