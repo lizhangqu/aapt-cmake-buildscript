@@ -53,6 +53,7 @@ include_directories(
         ${liblog_header}
         ${libsystem_header}
         ${native_header}
+        ${zlib_header}
 )
 
 #mac不参与下面三个库的编译，否则libaapt2_jni有问题
