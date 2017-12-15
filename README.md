@@ -65,6 +65,8 @@ cd /Volumes/aapt
 cmake -H"./" -B"./build-cmake" -DCMAKE_BUILD_TYPE=MinSizeRel
 #编译aapt
 cmake --build "./build-cmake" --target aapt -- -j 8
+#生成aapt2所需的头文件
+cmake --build "./build-cmake" --target protobuffer_h -- -j 8
 #编译aapt2
 cmake --build "./build-cmake" --target aapt2 -- -j 8
 #编译aapt2_jni
