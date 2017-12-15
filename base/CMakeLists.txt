@@ -43,6 +43,10 @@ endif()
 
 set(base_cflag "-Wall -Werror -Wextra")
 
+if(WIN32)
+    set(base_cflag "${base_cflag} -Wno-error=unused-parameter")
+endif()
+
 if(UNIX)
     set(base_cflag "${base_cflag} -fPIC")
 endif()
