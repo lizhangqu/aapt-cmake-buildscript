@@ -65,5 +65,5 @@ add_library(aapt2_jni SHARED ${aapt2_jni_sources})
 target_link_libraries(aapt2_jni aapt2_static expat androidfw base cutils log png utils ziparchive zlib protobuf)
 
 if(UNIX AND NOT APPLE)
-    target_link_libraries(aapt2 cxx cxxabi compiler_rt)
+    target_link_libraries(aapt2_jni cxx cxxabi compiler_rt)
 endif()
