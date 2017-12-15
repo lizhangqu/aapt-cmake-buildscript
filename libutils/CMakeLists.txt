@@ -36,7 +36,10 @@ if(UNIX)
 endif()
 
 #aosp中没有此编译选项
-set(libutils_cflag "${libutils_cflag} -Wno-unused-private-field -Wno-unused-variable")
+set(libutils_cflag "${libutils_cflag} -Wno-unused-variable")
+if(UNIX)
+    set(libutils_cflag "${libutils_cflag} -Wno-unused-private-field")
+endif()
 
 if(UNIX AND NOT APPLE)
     #启用libcxx
@@ -48,6 +51,10 @@ set(libutils_cflag "${libutils_cflag} -DNDEBUG -UDEBUG")
 
 if(APPLE)
     set(libutils_cflag "${libutils_cflag} -Wno-unused-parameter")
+endif()
+
+if(WIN32)
+    set(libutils_cflag "${libutils_cflag} -DMB_CUR_MAX=1 -D_GNU_SOURCE=1 -D__STDC_FORMAT_MACROS")
 endif()
 
 if(UNIX AND NOT APPLE)
