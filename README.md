@@ -41,6 +41,37 @@ sudo apt-get install git-core gnupg flex bison gperf build-essential zip curl zl
 sudo apt-get install mingw-w64
 ```
 
+如果下面的交叉编译构建过程中发生了如下错误
+
+
+将system/core/base/include/android-base/utf8.h头文件上方的include部分从
+
+```
+#ifdef _WIN32
+#include <string>
+#else
+// Bring in prototypes for standard APIs so that we can import them into the utf8 namespace.
+#include <fcntl.h>      // open
+#include <stdio.h>      // fopen
+#include <sys/stat.h>   // mkdir
+#include <unistd.h>     // unlink
+#endif
+```
+
+改为
+
+```
+#ifdef _WIN32
+#include <string>
+#include <sys/stat.h>
+#else
+// Bring in prototypes for standard APIs so that we can import them into the utf8 namespace.
+#include <fcntl.h>      // open
+#include <stdio.h>      // fopen
+#include <sys/stat.h>   // mkdir
+#include <unistd.h>     // unlink
+#endif
+```
 
 
 ## 构建
