@@ -24,8 +24,17 @@ set(liblog_sources
 set(liblog_host_sources
         ${CMAKE_SOURCE_DIR}/system/core/liblog/fake_log_device.c
         ${CMAKE_SOURCE_DIR}/system/core/liblog/fake_writer.c
-        ${CMAKE_SOURCE_DIR}/system/core/liblog/event_tag_map.cpp
         )
+
+if(WIN32)
+    set(liblog_host_sources
+            ${CMAKE_SOURCE_DIR}/system/core/liblog/uio.c
+            )
+elseif(UNIX)
+    set(liblog_host_sources
+            ${CMAKE_SOURCE_DIR}/system/core/liblog/event_tag_map.cpp
+            )
+endif()
 
 set(liblog_cflag "-DFAKE_LOG_DEVICE=1 -Werror -fvisibility=hidden -DLIBLOG_LOG_TAG=1006 -DSNET_EVENT_LOG_TAG=1397638484")
 

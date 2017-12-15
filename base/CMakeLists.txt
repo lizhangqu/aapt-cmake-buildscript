@@ -14,9 +14,19 @@ set(base_sources
         ${CMAKE_SOURCE_DIR}/system/core/base/stringprintf.cpp
         ${CMAKE_SOURCE_DIR}/system/core/base/strings.cpp
         ${CMAKE_SOURCE_DIR}/system/core/base/test_utils.cpp
-        ${CMAKE_SOURCE_DIR}/system/core/base/chrono_utils.cpp
-        ${CMAKE_SOURCE_DIR}/system/core/base/errors_unix.cpp
         )
+
+if(WIN32)
+    set(base_sources
+            ${CMAKE_SOURCE_DIR}/system/core/base/errors_windows.cpp
+            ${CMAKE_SOURCE_DIR}/system/core/base/utf8.cpp
+            )
+elseif(UNIX)
+    set(base_sources
+            ${CMAKE_SOURCE_DIR}/system/core/base/chrono_utils.cpp
+            ${CMAKE_SOURCE_DIR}/system/core/base/errors_unix.cpp
+            )
+endif()
 
 include_directories(
         ${base_header}
