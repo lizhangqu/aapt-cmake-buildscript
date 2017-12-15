@@ -46,7 +46,11 @@ endif()
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(base_cflag "${base_cflag} -DNDEBUG -UDEBUG")
 
-set(base_cxxflag "${base_cflag} -std=gnu++14 -Wexit-time-destructors")
+set(base_cxxflag "${base_cflag} -std=gnu++14")
+
+if(UNIX)
+    set(base_cxxflag "${base_cflag} -Wexit-time-destructors")
+endif()
 
 set(CMAKE_C_FLAGS ${base_cflag})
 set(CMAKE_CXX_FLAGS ${base_cxxflag})
