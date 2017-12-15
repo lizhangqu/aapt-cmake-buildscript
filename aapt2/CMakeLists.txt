@@ -22,8 +22,9 @@ set(aapt2_sources
 
 set(aapt2_cflag "-Werror -Wall -Wno-unused-parameter")
 
-set(aapt2_cflag "${aapt2_cflag} -fPIC")
-
+if(UNIX)
+    set(aapt2_cflag "${aapt2_cflag} -fPIC")
+endif()
 
 if(UNIX AND NOT APPLE)
     #启用libcxx

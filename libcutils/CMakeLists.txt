@@ -38,7 +38,9 @@ set(libcutils_sources
 
 set(libcutils_cflag "-Werror -Wall -Wextra -std=gnu99")
 
-set(libcutils_cflag "${libcutils_cflag} -fPIC")
+if(UNIX)
+    set(libcutils_cflag "${libcutils_cflag} -fPIC")
+endif()
 
 #aosp中没有此编译选项
 set(libcutils_cflag "${libcutils_cflag} -Wno-deprecated-declarations")

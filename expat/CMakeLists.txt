@@ -18,7 +18,9 @@ include_directories(
 
 set(expat_cflag "-Wall -Werror -Wmissing-prototypes -Wstrict-prototypes -Wno-unused-parameter -Wno-missing-field-initializers -fexceptions -DHAVE_EXPAT_CONFIG_H")
 
-set(expat_cflag "${expat_cflag} -fPIC")
+if(UNIX)
+    set(expat_cflag "${expat_cflag} -fPIC")
+endif()
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(expat_cflag "${expat_cflag} -DNDEBUG -UDEBUG")

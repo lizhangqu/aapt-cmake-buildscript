@@ -30,7 +30,9 @@ set(libcxxabi_sources
 
 set(libcxxabi_cflag "")
 
-set(libcxxabi_cflag "${libcxxabi_cflag} -fPIC")
+if(UNIX)
+    set(libcxxabi_cflag "${libcxxabi_cflag} -fPIC")
+endif()
 
 #启用libcxx
 set(libcxxabi_cflag "${libcxxabi_cflag} ${global_libcxx_cxxflags}")

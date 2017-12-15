@@ -34,7 +34,9 @@ set(libprotobuf_sources
 
 set(libprotobuf_cflag "-Wno-sign-compare -Wno-unused-parameter -Wno-sign-promo -Wno-error=return-type -DGOOGLE_PROTOBUF_NO_RTTI")
 
-set(libprotobuf_cflag "${libprotobuf_cflag} -fPIC")
+if(UNIX)
+    set(libprotobuf_cflag "${libprotobuf_cflag} -fPIC")
+endif()
 
 if(UNIX AND NOT APPLE)
     #启用libcxx

@@ -12,7 +12,9 @@ set(aapt2_jni_sources
 
 set(aapt2_jni_cflag "-Werror -Wall -Wno-unused-parameter")
 
-set(aapt2_jni_cflag "${aapt2_jni_cflag} -fPIC")
+if(UNIX)
+    set(aapt2_jni_cflag "${aapt2_jni_cflag} -fPIC")
+endif()
 
 if(UNIX AND NOT APPLE)
     #启用libcxx

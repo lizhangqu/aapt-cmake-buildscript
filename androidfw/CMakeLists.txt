@@ -30,7 +30,9 @@ set(androidfw_sources
 
 set(androidfw_cflag "-Werror -Wall -Wunused -Wunreachable-code -DSTATIC_ANDROIDFW_FOR_TOOLS")
 
-set(androidfw_cflag "${androidfw_cflag} -fPIC")
+if(UNIX)
+    set(androidfw_cflag "${androidfw_cflag} -fPIC")
+endif()
 
 if(UNIX AND NOT APPLE)
     #启用libcxx

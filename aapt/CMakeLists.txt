@@ -22,7 +22,10 @@ set(aapt_sources
         )
 
 set(aapt_cflag "-Werror -Wall -Wno-format-y2k -DSTATIC_ANDROIDFW_FOR_TOOLS")
-set(aapt_cflag "${aapt_cflag} -fPIC")
+
+if(UNIX)
+    set(aapt_cflag "${aapt_cflag} -fPIC")
+endif()
 
 if(UNIX AND NOT APPLE)
     #启用libcxx

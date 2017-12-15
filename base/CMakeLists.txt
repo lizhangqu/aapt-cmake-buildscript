@@ -33,7 +33,9 @@ endif()
 
 set(base_cflag "-Wall -Werror -Wextra")
 
-set(base_cflag "${base_cflag} -fPIC")
+if(UNIX)
+    set(base_cflag "${base_cflag} -fPIC")
+endif()
 
 #aosp没有此编译选项
 set(base_cflag "${base_cflag} -Wno-deprecated-declarations")

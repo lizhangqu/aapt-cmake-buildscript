@@ -15,8 +15,9 @@ set(libziparchive_sources
 
 set(libziparchive_cflag "-DZLIB_CONST -Werror -Wall -D_FILE_OFFSET_BITS=64")
 
-set(libziparchive_cflag "${libziparchive_cflag} -fPIC")
-
+if(UNIX)
+    set(libziparchive_cflag "${libziparchive_cflag} -fPIC")
+endif()
 
 if(UNIX AND NOT APPLE)
     #启用libcxx
