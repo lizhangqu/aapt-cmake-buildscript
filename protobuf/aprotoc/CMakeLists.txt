@@ -154,6 +154,11 @@ set(aprotoc_sources
 
 set(aprotoc_cflag "-Wall -Wno-error=format -Wno-error=format-extra-args -Wno-error=ignored-qualifiers -Wno-error=sign-promo -Wno-unused-function -Werror -Wno-sign-compare -Wno-unused-parameter -Wno-sign-promo -Wno-error=return-type")
 
+if(WIN32)
+    set(aprotoc_cflag "${aprotoc_cflag} -Wno-error=maybe-uninitialized")
+endif()
+
+
 if(UNIX)
     set(aprotoc_cflag "${aprotoc_cflag} -fPIC")
 endif()
