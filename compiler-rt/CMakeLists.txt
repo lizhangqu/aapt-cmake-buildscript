@@ -7,8 +7,6 @@ if (UNIX AND NOT APPLE)
 endif ()
 
 set(compiler_rt_sources
-        ${CMAKE_SOURCE_DIR}/external/compiler-rt/lib/builtins/enable_execute_stack.c
-         ${CMAKE_SOURCE_DIR}/external/compiler-rt/lib/builtins/enable_execute_stack.c
          ${CMAKE_SOURCE_DIR}/external/compiler-rt/lib/builtins/absvdi2.c
          ${CMAKE_SOURCE_DIR}/external/compiler-rt/lib/builtins/absvsi2.c
          ${CMAKE_SOURCE_DIR}/external/compiler-rt/lib/builtins/absvti2.c
@@ -155,6 +153,11 @@ set(compiler_rt_sources
          ${CMAKE_SOURCE_DIR}/external/compiler-rt/lib/builtins/umodsi3.c
          ${CMAKE_SOURCE_DIR}/external/compiler-rt/lib/builtins/umodti3.c
         )
+
+        
+if(UNIX)
+    list(APPEND compiler_rt_sources  ${CMAKE_SOURCE_DIR}/external/compiler-rt/lib/builtins/enable_execute_stack.c)
+endif()
 
 set(compiler_rt_cflag "-Wno-unused-parameter -Werror")
 
