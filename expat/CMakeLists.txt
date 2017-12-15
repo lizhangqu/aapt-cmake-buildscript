@@ -27,7 +27,10 @@ set(expat_cflag "${expat_cflag} -DNDEBUG -UDEBUG")
 
 if(APPLE)
     set(expat_cflag "${expat_cflag} -fno-common")
-elseif(UNIX)
+endif()
+
+if(WIN32)
+    set(expat_cflag "${expat_cflag} -Wno-unused-but-set-variable")
 endif()
 
 set(CMAKE_C_FLAGS ${expat_cflag})
