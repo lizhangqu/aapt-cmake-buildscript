@@ -49,10 +49,6 @@ endif()
 
 set(libcutils_cflag "-Werror -Wall -Wextra")
 
-if(UNIX)
-    set(libcutils_cflag "${libcutils_cflag} -std=gnu99")
-endif()
-
 if(WIN32)
     set(libcutils_cflag "${libcutils_cflag} -D_GNU_SOURCE -Wno-error=unused-parameter")
 endif()
@@ -73,6 +69,9 @@ endif()
 set(libcutils_cflag "${libcutils_cflag} -DNDEBUG -UDEBUG")
 
 set(libcutils_cxxflag "${libcutils_cflag} -std=gnu++14")
+
+#c使用gun99，避免被cxxflag引入，放在cxxflag后面
+set(libcutils_cflag "${libcutils_cflag} -std=gnu99")
 
 include_directories(
         ${libcutils_header}
