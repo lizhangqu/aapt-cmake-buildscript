@@ -48,7 +48,7 @@ error: ‘_Atomic’ does not name a type
  typedef _Atomic _Bool atomic_bool;
 ```
 
-请将system/core/libcutils/include/cutils/atomic.h头文件中的**#include <stdatomic.h>**部分
+请将system/core/libcutils/include/cutils/atomic.h头文件中的#include <stdatomic.h>部分
 
 改为
 
@@ -111,7 +111,7 @@ cmake --build "./build-cmake" --target aapt2_jni -- -j 8
 cmake -H"./" -B"./build-cmake" -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_TOOLCHAIN_FILE=windows.toolchain.cmake
 ```
 
-windows可执行文件需要在Ubuntu 16.0.4下进行交叉编译，进行交叉编译前，需要将system/core/libcutils/include/cutils/atomic.h头文件中的**#include <stdatomic.h>**部分修改为
+windows可执行文件需要在Ubuntu 16.0.4下进行交叉编译，进行交叉编译前，需要将system/core/libcutils/include/cutils/atomic.h头文件中的#include <stdatomic.h>部分修改为
 
 ```
 #if defined(_WIN32)
