@@ -12,6 +12,10 @@ set(aapt2_jni_sources
 
 set(aapt2_jni_cflag "-Werror -Wall -Wno-unused-parameter")
 
+if (WIN32)
+    set(aapt2_jni_cflag "${aapt2_jni_cflag} -D__STDC_FORMAT_MACROS -Wno-error=maybe-uninitialized -Wno-error=unused-variable")
+endif ()
+
 if(UNIX)
     set(aapt2_jni_cflag "${aapt2_jni_cflag} -fPIC")
 endif()

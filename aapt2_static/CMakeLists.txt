@@ -87,6 +87,10 @@ set(aapt2_static_sources
 
 set(aapt2_static_cflag "-Werror -Wall -Wno-unused-parameter")
 
+if (WIN32)
+    set(aapt2_static_cflag "${aapt2_static_cflag} -D_GNU_SOURCE=1 -D__STDC_FORMAT_MACROS -Wno-error=maybe-uninitialized -Wno-error=unused-variable")
+endif ()
+
 if(UNIX)
     set(aapt2_static_cflag "${aapt2_static_cflag} -fPIC")
 endif()
@@ -152,11 +156,9 @@ endif()
 
 if(UNIX)
     add_custom_target(protobuffer_h
-        WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
-        COMMAND ${CMAKE_BINARY_DIR}/buildscript/protobuf/aprotoc/aprotoc frameworks/base/tools/aapt2/Resources.proto frameworks/base/tools/aapt2/ResourcesInternal.proto  --cpp_out=frameworks/base/tools/aapt2
-        DEPENDS aprotoc
-        )
+            WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
+            COMMAND ${CMAKE_BINARY_DIR}/buildscript/protobuf/aprotoc/aprotoc frameworks/base/tools/aapt2/Resources.proto frameworks/base/tools/aapt2/ResourcesInternal.proto  --cpp_out=frameworks/base/tools/aapt2
+            DEPENDS aprotoc
+            )
     add_dependencies(aapt2_static protobuffer_h)
 endif()
-
-

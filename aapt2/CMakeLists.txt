@@ -22,6 +22,10 @@ set(aapt2_sources
 
 set(aapt2_cflag "-Werror -Wall -Wno-unused-parameter")
 
+if (WIN32)
+    set(aapt2_cflag "${aapt2_cflag} -D_GNU_SOURCE=1 -D__STDC_FORMAT_MACROS -Wno-error=cpp -Wno-error=maybe-uninitialized -Wno-error=unused-variable")
+endif ()
+
 if(UNIX)
     set(aapt2_cflag "${aapt2_cflag} -fPIC")
 endif()
