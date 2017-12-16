@@ -1,5 +1,5 @@
 # sudo apt-get install mingw-w64
-# cmake -DCMAKE_BUILD_TYPE=MinSizeRel -G "CodeBlocks - Unix Makefiles" ./ -DCMAKE_TOOLCHAIN_FILE=./windows.toolchain.cmake
+# -DCMAKE_TOOLCHAIN_FILE=/path/to/windows.toolchain.cmake
 
 set(CMAKE_SYSTEM_NAME Windows)
 set(CMAKE_SYSTEM_VERSION 1)
