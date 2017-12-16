@@ -65,7 +65,7 @@ set(base_cflag "${base_cflag} -DNDEBUG -UDEBUG")
 set(base_cxxflag "${base_cflag} -std=gnu++14")
 
 if(UNIX)
-    set(base_cxxflag "${base_cflag} -Wexit-time-destructors")
+    set(base_cxxflag "${base_cxxflag} -Wexit-time-destructors")
 endif()
 
 set(CMAKE_C_FLAGS ${base_cflag})
