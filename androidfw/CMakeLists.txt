@@ -34,6 +34,10 @@ if(UNIX)
     set(androidfw_cflag "${androidfw_cflag} -fPIC")
 endif()
 
+if(WIN32)
+    set(androidfw_cflag "${androidfw_cflag} -D_GNU_SOURCE=1 -D__STDC_FORMAT_MACROS -Wno-error=strict-aliasing -Wno-missing-field-initializers")
+endif()
+
 if(UNIX AND NOT APPLE)
     #启用libcxx
     set(androidfw_cflag "${androidfw_cflag} ${global_libcxx_cxxflags}")

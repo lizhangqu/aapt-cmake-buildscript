@@ -34,6 +34,10 @@ set(aapt_static_cflag
         "-Werror -Wall -Wno-format-y2k -DSTATIC_ANDROIDFW_FOR_TOOLS"
         )
 
+if (WIN32)
+    set(aapt_static_cflag "${aapt_static_cflag} -D_GNU_SOURCE=1 -D__STDC_FORMAT_MACROS -Wno-error=unused-but-set-variable")
+endif ()
+
 if(UNIX)
     set(aapt_static_cflag "${aapt_static_cflag} -fPIC")
 endif()
