@@ -22,15 +22,6 @@ set(libcutils_sources
         ${CMAKE_SOURCE_DIR}/system/core/libcutils/strdup8to16.c
         ${CMAKE_SOURCE_DIR}/system/core/libcutils/strlcpy.c
         ${CMAKE_SOURCE_DIR}/system/core/libcutils/threads.c
-        ${CMAKE_SOURCE_DIR}/system/core/libcutils/android_get_control_file.cpp
-        ${CMAKE_SOURCE_DIR}/system/core/libcutils/fs.c
-        ${CMAKE_SOURCE_DIR}/system/core/libcutils/multiuser.c
-        ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_inaddr_any_server_unix.c
-        ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_local_client_unix.c
-        ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_local_server_unix.c
-        ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_network_client_unix.c
-        ${CMAKE_SOURCE_DIR}/system/core/libcutils/sockets_unix.cpp
-        ${CMAKE_SOURCE_DIR}/system/core/libcutils/str_parms.c
         ${CMAKE_SOURCE_DIR}/system/core/libcutils/dlmalloc_stubs.c
         )
 
@@ -44,6 +35,15 @@ elseif(UNIX)
     list(APPEND libcutils_sources
             ${CMAKE_SOURCE_DIR}/system/core/libcutils/ashmem-host.c
             ${CMAKE_SOURCE_DIR}/system/core/libcutils/trace-host.c
+            ${CMAKE_SOURCE_DIR}/system/core/libcutils/android_get_control_file.cpp
+            ${CMAKE_SOURCE_DIR}/system/core/libcutils/fs.c
+            ${CMAKE_SOURCE_DIR}/system/core/libcutils/multiuser.c
+            ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_inaddr_any_server_unix.c
+            ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_local_client_unix.c
+            ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_local_server_unix.c
+            ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_network_client_unix.c
+            ${CMAKE_SOURCE_DIR}/system/core/libcutils/sockets_unix.cpp
+            ${CMAKE_SOURCE_DIR}/system/core/libcutils/str_parms.c
             )
 endif()
 
