@@ -15,7 +15,7 @@ set(libziparchive_sources
 set(libziparchive_cflag "-DZLIB_CONST -Werror -Wall -D_FILE_OFFSET_BITS=64")
 
 if(WIN32)
-    set(libziparchive_cflag "${libziparchive_cflag} -D_GNU_SOURCE=1 -D__STDC_FORMAT_MACROS -Wno-error=strict-aliasing -Wno-error=unused-variable")
+    set(libziparchive_cflag "${libziparchive_cflag} -mno-ms-bitfields -D_GNU_SOURCE=1 -D__STDC_FORMAT_MACROS -Wno-error=strict-aliasing -Wno-error=unused-variable")
 endif()
 
 if(UNIX)
