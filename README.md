@@ -41,6 +41,20 @@ sudo apt-get install git-core gnupg flex bison gperf build-essential zip curl zl
 sudo apt-get install mingw-w64
 ```
 
+安装完成后，mingw-gcc和mingw-g++默认使用的线程模型是win32的，但是我们需要使用posix的线程模型，因此分别执行以下命令，将工具链指向带-posix后缀的工具链
+
+```
+sudo update-alternatives --config x86_64-w64-mingw32-gcc
+sudo update-alternatives --config x86_64-w64-mingw32-g++
+sudo update-alternatives --config x86_64-w64-mingw32-gfortran
+sudo update-alternatives --config x86_64-w64-mingw32-gnat
+
+sudo update-alternatives --config i686-w64-mingw32-gcc
+sudo update-alternatives --config i686-w64-mingw32-g++
+sudo update-alternatives --config i686-w64-mingw32-gfortran
+sudo update-alternatives --config i686-w64-mingw32-gnat
+```
+
 如果交叉编译构建过程中发生了如下错误
 
 ```
