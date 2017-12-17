@@ -70,6 +70,12 @@ set(CMAKE_CXX_FLAGS ${aapt2_jni_cxxflag})
 add_library(aapt2_jni SHARED ${aapt2_jni_sources})
 target_link_libraries(aapt2_jni aapt2_static expat androidfw base cutils log png utils ziparchive zlib protobuf)
 
+if (WIN32)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
+    target_link_libraries(aapt2_jni stdc++ winpthread)
+endif ()
+
+
 if(UNIX AND NOT APPLE)
     target_link_libraries(aapt2_jni cxx cxxabi compiler_rt)
 endif()

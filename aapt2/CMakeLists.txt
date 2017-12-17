@@ -81,6 +81,11 @@ set(CMAKE_CXX_FLAGS ${aapt2_cxxflag})
 add_executable(aapt2 ${aapt2_sources})
 target_link_libraries(aapt2 aapt2_static expat androidfw base cutils log png utils ziparchive zlib protobuf)
 
+if (WIN32)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
+    target_link_libraries(aapt2 stdc++ winpthread)
+endif ()
+
 if(UNIX AND NOT APPLE)
     target_link_libraries(aapt2 cxx cxxabi compiler_rt)
 endif()
