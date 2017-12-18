@@ -1,6 +1,6 @@
 # aapt cmake buildscript
 
-查看manifest仓库请转移到 [https://github.com/lizhangqu/aapt-repo](https://github.com/lizhangqu/aapt-repo)
+查看manifest仓库请转移到 [https://github.com/lizhangqu/aapt-repo-manifest](https://github.com/lizhangqu/aapt-repo-manifest)
 
 ## for mac
 
