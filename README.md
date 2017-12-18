@@ -163,3 +163,12 @@ cmake --build "./build-cmake-windows" --target aapt2 -- -j 8
 cmake --build "./build-cmake-windows" --target aapt2_jni -- -j 8
 #最终windows下的可执行文件和动态库生成都位于build-cmake-windows目录下
 ```
+
+如果需要编译32位的可执行文件，在生产cmake文件的时候，添加-DUSE_32BITS=1参数，如
+
+```
+#linux或者mac
+cmake -H"./" -B"./build-cmake-unix-x86" -DCMAKE_BUILD_TYPE=MinSizeRel -DUSE_32BITS=1
+#windows交叉编译
+cmake -H"./" -B"./build-cmake-windows-x86" -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_TOOLCHAIN_FILE=windows.toolchain.cmake -DUSE_32BITS=1
+```
