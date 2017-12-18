@@ -176,4 +176,11 @@ include_directories(
 
 set(CMAKE_C_FLAGS ${compiler_rt_cflag})
 set(CMAKE_CXX_FLAGS ${compiler_rt_cxxflag})
+if(UNIX)
+    if(USE_32BITS)
+        message(STATUS "using 32bits")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
+    endif()
+endif()
 add_library(compiler_rt STATIC ${compiler_rt_sources})

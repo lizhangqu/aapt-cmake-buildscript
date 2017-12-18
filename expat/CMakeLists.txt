@@ -34,6 +34,13 @@ if(WIN32)
 endif()
 
 set(CMAKE_C_FLAGS ${expat_cflag})
+if(UNIX)
+    if(USE_32BITS)
+        message(STATUS "using 32bits")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
+    endif()
+endif()
 add_library(expat STATIC ${expat_sources})
 
 

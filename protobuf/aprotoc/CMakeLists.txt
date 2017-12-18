@@ -184,6 +184,13 @@ include_directories(
 
 set(CMAKE_C_FLAGS ${aprotoc_cflag})
 set(CMAKE_CXX_FLAGS ${aprotoc_cxxflag})
+if(UNIX)
+    if(USE_32BITS)
+        message(STATUS "using 32bits")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
+    endif()
+endif()
 add_executable(aprotoc ${aprotoc_sources})
 target_link_libraries(aprotoc zlib)
 

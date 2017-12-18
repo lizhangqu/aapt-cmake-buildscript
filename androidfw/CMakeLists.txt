@@ -71,6 +71,13 @@ endif()
 
 set(CMAKE_C_FLAGS ${androidfw_cflag})
 set(CMAKE_CXX_FLAGS ${androidfw_cxxflag})
+if(UNIX)
+    if(USE_32BITS)
+        message(STATUS "using 32bits")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
+    endif()
+endif()
 add_library(androidfw STATIC ${androidfw_sources})
 target_link_libraries(androidfw ziparchive base log cutils utils zlib)
 

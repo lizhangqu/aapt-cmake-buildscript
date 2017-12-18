@@ -50,4 +50,11 @@ include_directories(
 
 set(CMAKE_C_FLAGS ${libcxxabi_cflag})
 set(CMAKE_CXX_FLAGS ${libcxxabi_cxxflag})
+if(UNIX)
+    if(USE_32BITS)
+        message(STATUS "using 32bits")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
+    endif()
+endif()
 add_library(cxxabi STATIC ${libcxxabi_sources})

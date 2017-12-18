@@ -73,6 +73,13 @@ endif()
 
 set(CMAKE_C_FLAGS ${aapt_cflag})
 set(CMAKE_CXX_FLAGS ${aapt_cxxflag})
+if(UNIX)
+    if(USE_32BITS)
+        message(STATUS "using 32bits")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
+    endif()
+endif()
 
 add_executable(aapt ${aapt_sources})
 target_link_libraries(aapt aapt_static androidfw png utils log cutils expat ziparchive base zlib)
