@@ -107,12 +107,14 @@ repo sync -j8
 ```
 #进入工作目录
 cd /Volumes/aapt
-#使用cmake生成构建文件，并最小化编译产物
+#使用cmake生成构建文件，并最小化编译产物，这一步的生成主要是为了生成protobuffer相关文件
+cmake -H"./" -B"./build-cmake" -DCMAKE_BUILD_TYPE=MinSizeRel
+#生成aapt2所需的protobuffer头文件和cpp文件
+cmake --build "./build-cmake" --target protobuffer_h -- -j 8
+#重新生成构建文件，因为之前生成的时候，protobuffer相关文件不存在，需要重新生成
 cmake -H"./" -B"./build-cmake" -DCMAKE_BUILD_TYPE=MinSizeRel
 #编译aapt
 cmake --build "./build-cmake" --target aapt -- -j 8
-#生成aapt2所需的头文件
-cmake --build "./build-cmake" --target protobuffer_h -- -j 8
 #编译aapt2
 cmake --build "./build-cmake" --target aapt2 -- -j 8
 #编译aapt2_jni
@@ -150,7 +152,7 @@ cd /Volumes/aapt
 #使用cmake生成linux构建文件，并最小化编译产物
 cmake -H"./" -B"./build-cmake-linux" -DCMAKE_BUILD_TYPE=MinSizeRel
 #使用linux环境生成aapt2所需的头文件
-cmake --build "./build-cmake" --target protobuffer_h -- -j 8
+cmake --build "./build-cmake-linux" --target protobuffer_h -- -j 8
 
 #使用cmake生成windows交叉编译构建文件，并最小化编译产物
 cmake -H"./" -B"./build-cmake-windows" -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_TOOLCHAIN_FILE=windows.toolchain.cmake
