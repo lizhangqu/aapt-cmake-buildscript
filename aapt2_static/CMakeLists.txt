@@ -6,6 +6,14 @@ if(UNIX AND NOT APPLE)
     SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
 endif()
 
+if(UNIX)
+    add_custom_target(protobuffer_h
+            WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
+            COMMAND ${CMAKE_BINARY_DIR}/buildscript/protobuf/aprotoc/aprotoc frameworks/base/tools/aapt2/Resources.proto frameworks/base/tools/aapt2/ResourcesInternal.proto  --cpp_out=frameworks/base/tools/aapt2
+            DEPENDS aprotoc
+            )
+endif()
+
 set(aapt2_static_sources
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/cmd/Compile.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/cmd/Diff.cpp
@@ -159,13 +167,4 @@ target_link_libraries(aapt2_static expat androidfw base cutils log png utils zip
 
 if(UNIX AND NOT APPLE)
     target_link_libraries(aapt2_static cxx cxxabi compiler_rt)
-endif()
-
-if(UNIX)
-    add_custom_target(protobuffer_h
-            WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
-            COMMAND ${CMAKE_BINARY_DIR}/buildscript/protobuf/aprotoc/aprotoc frameworks/base/tools/aapt2/Resources.proto frameworks/base/tools/aapt2/ResourcesInternal.proto  --cpp_out=frameworks/base/tools/aapt2
-            DEPENDS aprotoc
-            )
-    add_dependencies(aapt2_static protobuffer_h)
 endif()
