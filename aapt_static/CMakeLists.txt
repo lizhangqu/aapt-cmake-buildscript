@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.6)
 project(aapt_static)
 
 if (UNIX AND NOT APPLE)
