@@ -1,18 +1,18 @@
 cmake_minimum_required(VERSION 3.6)
 project(aapt2_static)
 
-if(UNIX AND NOT APPLE)
-    SET (CMAKE_C_COMPILER "/usr/bin/clang")
-    SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
-endif()
+if (UNIX AND NOT APPLE)
+    SET(CMAKE_C_COMPILER "/usr/bin/clang")
+    SET(CMAKE_CXX_COMPILER "/usr/bin/clang++")
+endif ()
 
-if(UNIX)
+if (UNIX)
     add_custom_target(protobuffer_h
             WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
-            COMMAND ${CMAKE_BINARY_DIR}/buildscript/protobuf/aprotoc/aprotoc frameworks/base/tools/aapt2/Resources.proto frameworks/base/tools/aapt2/ResourcesInternal.proto  --cpp_out=frameworks/base/tools/aapt2
+            COMMAND ${CMAKE_BINARY_DIR}/buildscript/protobuf/aprotoc/aprotoc frameworks/base/tools/aapt2/Resources.proto frameworks/base/tools/aapt2/ResourcesInternal.proto --cpp_out=frameworks/base/tools/aapt2
             DEPENDS aprotoc
             )
-endif()
+endif ()
 
 set(aapt2_static_sources
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/cmd/Compile.cpp
@@ -88,10 +88,21 @@ set(aapt2_static_sources
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/xml/XmlDom.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/xml/XmlPullParser.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/xml/XmlUtil.cpp
-        #生成的文件在这个目录
-        ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/frameworks/base/tools/aapt2/Resources.pb.cc
-        ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/frameworks/base/tools/aapt2/ResourcesInternal.pb.cc
         )
+
+#生成的文件在这个目录
+if (EXISTS ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/frameworks/base/tools/aapt2/Resources.pb.cc)
+    list(APPEND aapt2_static_sources ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/frameworks/base/tools/aapt2/Resources.pb.cc)
+else ()
+    message(STATUS "请先使用cmake /path/to/cmakeFiles --target protobuffer_h生成protobuffer相关文件${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/frameworks/base/tools/aapt2/Resources.pb.cc，否则后续构建无法正常进行")
+endif ()
+
+#生成的文件在这个目录
+if (EXISTS ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/frameworks/base/tools/aapt2/ResourcesInternal.pb.cc)
+    list(APPEND aapt2_static_sources ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/frameworks/base/tools/aapt2/ResourcesInternal.pb.cc)
+else ()
+    message(STATUS "请先使用cmake /path/to/cmakeFiles --target protobuffer_h生成protobuffer相关文件${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/frameworks/base/tools/aapt2/ResourcesInternal.pb.cc，否则后续构建无法正常进行")
+endif ()
 
 set(aapt2_static_cflag "-Werror -Wall -Wno-unused-parameter")
 
@@ -99,18 +110,18 @@ if (WIN32)
     set(aapt2_static_cflag "${aapt2_static_cflag} -D_GNU_SOURCE=1 -D__STDC_FORMAT_MACROS -Wno-error=maybe-uninitialized -Wno-error=unused-variable")
 endif ()
 
-if(UNIX)
+if (UNIX)
     set(aapt2_static_cflag "${aapt2_static_cflag} -fPIC")
-endif()
+endif ()
 
-if(UNIX AND NOT APPLE)
+if (UNIX AND NOT APPLE)
     set(aapt2_static_cflag "${aapt2_static_cflag} -Wno-unused-variable")
-endif()
+endif ()
 
-if(UNIX AND NOT APPLE)
+if (UNIX AND NOT APPLE)
     #启用libcxx
     set(aapt2_static_cflag "${aapt2_static_cflag} ${global_libcxx_cxxflags}")
-endif()
+endif ()
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(aapt2_static_cflag "${aapt2_static_cflag} -DNDEBUG -UDEBUG")
@@ -143,28 +154,28 @@ include_directories(
 )
 
 #mac不参与下面三个库的编译，否则libaapt2_jni有问题
-if(UNIX AND NOT APPLE)
+if (UNIX AND NOT APPLE)
     include_directories(
             ${libcxx_header}
             ${libcxxabi_header}
             ${compiler_rt_header}
     )
-endif()
+endif ()
 
 
 set(CMAKE/C_FLAGS ${aapt2_static_cflag})
 set(CMAKE_CXX_FLAGS ${aapt2_static_cxxflag})
-if(UNIX)
-    if(USE_32BITS)
+if (UNIX)
+    if (USE_32BITS)
         message(STATUS "using 32bits")
         set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
-    endif()
-endif()
+    endif ()
+endif ()
 
 add_library(aapt2_static STATIC ${aapt2_static_sources})
 target_link_libraries(aapt2_static expat androidfw base cutils log png utils ziparchive zlib protobuf)
 
-if(UNIX AND NOT APPLE)
+if (UNIX AND NOT APPLE)
     target_link_libraries(aapt2_static cxx cxxabi compiler_rt)
-endif()
+endif ()
