@@ -104,7 +104,7 @@ else ()
     message(STATUS "请先使用cmake /path/to/cmakeFiles --target protobuffer_h生成protobuffer相关文件${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/frameworks/base/tools/aapt2/ResourcesInternal.pb.cc，否则后续构建无法正常进行")
 endif ()
 
-set(aapt2_static_cflag "-Werror -Wall -Wno-unused-parameter")
+set(aapt2_static_cflag "-Werror -Wall -Wno-unused-parameter -Wno-delete-non-virtual-dtor")
 
 if (WIN32)
     set(aapt2_static_cflag "${aapt2_static_cflag} -D_GNU_SOURCE=1 -D__STDC_FORMAT_MACROS -Wno-error=maybe-uninitialized -Wno-error=unused-variable")
