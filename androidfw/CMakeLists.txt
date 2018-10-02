@@ -14,6 +14,7 @@ set(androidfw_sources
         ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/AssetManager2.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/AttributeResolution.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/ChunkIterator.cpp
+        ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/Idmap.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/LoadedArsc.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/LocaleData.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/libs/androidfw/misc.cpp
