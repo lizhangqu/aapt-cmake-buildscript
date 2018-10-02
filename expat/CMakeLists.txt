@@ -7,6 +7,7 @@ if(UNIX AND NOT APPLE)
 endif()
 
 set(expat_sources
+        ${CMAKE_SOURCE_DIR}/external/expat/lib/loadlibrary.c
         ${CMAKE_SOURCE_DIR}/external/expat/lib/xmlparse.c
         ${CMAKE_SOURCE_DIR}/external/expat/lib/xmlrole.c
         ${CMAKE_SOURCE_DIR}/external/expat/lib/xmltok.c
@@ -16,7 +17,7 @@ include_directories(
         ${expat_header}
 )
 
-set(expat_cflag "-Wall -Werror -Wmissing-prototypes -Wstrict-prototypes -Wno-unused-parameter -Wno-missing-field-initializers -fexceptions -DHAVE_EXPAT_CONFIG_H")
+set(expat_cflag "-Wall -Werror -Wmissing-prototypes -Wstrict-prototypes -Wno-unused-parameter -Wno-unused-function -Wno-missing-field-initializers -fexceptions -DHAVE_EXPAT_CONFIG_H -UWIN32_LEAN_AND_MEAN")
 
 if(UNIX)
     set(expat_cflag "${expat_cflag} -fPIC")
