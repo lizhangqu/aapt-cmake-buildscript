@@ -35,6 +35,7 @@ set(libcxx_sources
         ${CMAKE_SOURCE_DIR}/external/libcxx/src/utility.cpp
         ${CMAKE_SOURCE_DIR}/external/libcxx/src/valarray.cpp
         ${CMAKE_SOURCE_DIR}/external/libcxx/src/variant.cpp
+        ${CMAKE_SOURCE_DIR}/external/libcxx/src/vector.cpp
         )
 
 set(libcxx_cflag "")
