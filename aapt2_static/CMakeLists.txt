@@ -16,6 +16,7 @@ endif ()
 
 set(aapt2_static_sources
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/cmd/Compile.cpp
+        ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/cmd/Convert.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/cmd/Diff.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/cmd/Dump.cpp
         ${CMAKE_SOURCE_DIR}/frameworks/base/tools/aapt2/cmd/Link.cpp
