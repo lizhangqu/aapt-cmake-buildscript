@@ -15,7 +15,6 @@ set(libcxxabi_sources
         ${CMAKE_SOURCE_DIR}/external/libcxxabi/src/cxa_exception_storage.cpp
         ${CMAKE_SOURCE_DIR}/external/libcxxabi/src/cxa_guard.cpp
         ${CMAKE_SOURCE_DIR}/external/libcxxabi/src/cxa_handlers.cpp
-        ${CMAKE_SOURCE_DIR}/external/libcxxabi/src/cxa_new_delete.cpp
         ${CMAKE_SOURCE_DIR}/external/libcxxabi/src/cxa_personality.cpp
         ${CMAKE_SOURCE_DIR}/external/libcxxabi/src/cxa_thread_atexit.cpp
         ${CMAKE_SOURCE_DIR}/external/libcxxabi/src/cxa_unexpected.cpp
@@ -24,6 +23,7 @@ set(libcxxabi_sources
         ${CMAKE_SOURCE_DIR}/external/libcxxabi/src/fallback_malloc.cpp
         ${CMAKE_SOURCE_DIR}/external/libcxxabi/src/private_typeinfo.cpp
         ${CMAKE_SOURCE_DIR}/external/libcxxabi/src/stdlib_exception.cpp
+        ${CMAKE_SOURCE_DIR}/external/libcxxabi/src/stdlib_new_delete.cpp
         ${CMAKE_SOURCE_DIR}/external/libcxxabi/src/stdlib_stdexcept.cpp
         ${CMAKE_SOURCE_DIR}/external/libcxxabi/src/stdlib_typeinfo.cpp
         )
