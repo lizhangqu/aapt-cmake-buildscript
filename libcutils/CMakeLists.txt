@@ -44,7 +44,7 @@ elseif(UNIX)
             )
 endif()
 
-set(libcutils_cflag "-Werror -Wall -Wextra")
+set(libcutils_cflag "-Werror -Wall -Wextra -D__STDC_FORMAT_MACROS")
 
 if(WIN32)
     set(libcutils_cflag "${libcutils_cflag} -D_GNU_SOURCE -Wno-error=unused-parameter")
