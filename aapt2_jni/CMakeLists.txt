@@ -38,6 +38,10 @@ set(aapt2_jni_cflag "${aapt2_jni_cflag} -Wno-deprecated-declarations")
 
 set(aapt2_jni_cxxflag "${aapt2_jni_cflag} -std=gnu++14 -Wno-missing-field-initializers -fno-exceptions")
 
+if(UNIX AND NOT APPLE)
+    set(aapt2_jni_cxxflag "${aapt2_jni_cxxflag} -Wno-unknown-attributes")
+endif()
+
 include_directories(
         ${protobuf_header}
         ${androidfw_header}
