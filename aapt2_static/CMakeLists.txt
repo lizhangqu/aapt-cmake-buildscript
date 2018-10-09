@@ -144,11 +144,11 @@ endif ()
 #官方的编译选项中没有此项
 set(aapt2_static_cflag "${aapt2_static_cflag} -Wno-deprecated-declarations")
 
+set(aapt2_static_cxxflag "${aapt2_static_cflag} -std=gnu++14 -Wno-missing-field-initializers -fno-exceptions")
+
 if(UNIX AND NOT APPLE)
     set(aapt2_static_cxxflag "${aapt2_static_cxxflag} -Wno-unknown-attributes")
 endif()
-
-set(aapt2_static_cxxflag "${aapt2_static_cflag} -std=gnu++14 -Wno-missing-field-initializers -fno-exceptions")
 
 include_directories(
         ${protobuf_header}
