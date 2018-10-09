@@ -33,6 +33,10 @@ set(libziparchive_cflag "${libziparchive_cflag} -DNDEBUG -UDEBUG")
 
 set(libziparchive_cxxflag "${libziparchive_cflag} -std=gnu++14 -Wold-style-cast -Wno-missing-field-initializers")
 
+if(UNIX AND NOT APPLE)
+    set(libziparchive_cxxflag "${libziparchive_cxxflag} -Wno-unknown-attributes")
+endif()
+
 include_directories(
         ${libziparchive_header}
         ${base_header}
