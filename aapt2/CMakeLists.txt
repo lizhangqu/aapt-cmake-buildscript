@@ -48,6 +48,10 @@ set(aapt2_cflag "${aapt2_cflag} -Wno-deprecated-declarations")
 
 set(aapt2_cflag "${aapt2_cflag} -O3")
 
+if(UNIX AND NOT APPLE)
+    set(aapt2_cxxflag "${aapt2_cxxflag} -Wno-unknown-attributes")
+endif()
+
 set(aapt2_cxxflag "${aapt2_cflag} -std=gnu++14 -Wno-missing-field-initializers -fno-exceptions")
 
 include_directories(
