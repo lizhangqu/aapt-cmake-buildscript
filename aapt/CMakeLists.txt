@@ -45,6 +45,10 @@ endif()
 
 set(aapt_cflag "${aapt_cflag} -O3 ")
 
+if(UNIX AND NOT APPLE)
+    set(aapt_static_cxxflag "${aapt_static_cxxflag} -Wno-unknown-attributes")
+endif()
+
 set(aapt_cxxflag "${aapt_cflag} -std=gnu++14")
 
 include_directories(
