@@ -42,6 +42,10 @@ set(libcxxabi_cflag "${libcxxabi_cflag} -DNDEBUG -UDEBUG")
 
 set(libcxxabi_cxxflag "${libcxxabi_cflag} -std=gnu++14 -fexceptions -Wall -Wextra -Wno-unused-function -Werror")
 
+if(UNIX AND NOT APPLE)
+    set(libcxxabi_cxxflag "${libcxxabi_cxxflag} -Wno-macro-redefined")
+endif()
+
 include_directories(
         ${libcxx_header}
         ${libcxxabi_header}
