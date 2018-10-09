@@ -68,6 +68,10 @@ if(UNIX)
     set(base_cxxflag "${base_cxxflag} -Wexit-time-destructors")
 endif()
 
+if(UNIX AND NOT APPLE)
+    set(base_cxxflag "${base_cxxflag} -Wno-unknown-attributes")
+endif()
+
 set(CMAKE_C_FLAGS ${base_cflag})
 set(CMAKE_CXX_FLAGS ${base_cxxflag})
 if(UNIX)
