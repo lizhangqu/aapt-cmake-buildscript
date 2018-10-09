@@ -118,7 +118,7 @@ endif ()
 set(aapt2_static_cflag "-Werror -Wall -Wno-unused-parameter -Wno-delete-non-virtual-dtor")
 
 if (WIN32)
-    set(aapt2_static_cflag "${aapt2_static_cflag} -D_GNU_SOURCE=1 -D__STDC_FORMAT_MACROS -Wno-error=maybe-uninitialized -Wno-error=unused-variable")
+    set(aapt2_static_cflag "${aapt2_static_cflag} -D_GNU_SOURCE=1 -D__STDC_FORMAT_MACROS -Wno-error=maybe-uninitialized -Wno-error=unused-variable -Wno-strict-aliasing -Wno-unused-but-set-variable")
 endif ()
 
 if (UNIX)
