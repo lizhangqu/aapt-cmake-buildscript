@@ -26,8 +26,8 @@ set(libcutils_sources
 
 if(WIN32)
     list(APPEND libcutils_sources
-            ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_inaddr_any_server_windows.c
-            ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_network_client_windows.c
+            ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_inaddr_any_server_windows.cpp
+            ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_network_client_windows.cpp
             ${CMAKE_SOURCE_DIR}/system/core/libcutils/sockets_windows.cpp
             )
 elseif(UNIX)
