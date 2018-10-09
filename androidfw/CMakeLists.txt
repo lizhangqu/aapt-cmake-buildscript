@@ -40,6 +40,10 @@ if(WIN32)
 endif()
 
 if(UNIX AND NOT APPLE)
+    set(androidfw_cflag "${androidfw_cflag} -Wno-unknown-attributes")
+endif()
+
+if(UNIX AND NOT APPLE)
     #启用libcxx
     set(androidfw_cflag "${androidfw_cflag} ${global_libcxx_cxxflags}")
 endif()
