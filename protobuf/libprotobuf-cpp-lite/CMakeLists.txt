@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.6)
 project(libprotobuf)
 
-if(UNIX AND NOT APPLE)
-    SET (CMAKE_C_COMPILER "/usr/bin/clang")
-    SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
-endif()
+if (UNIX AND NOT APPLE)
+    SET(CMAKE_C_COMPILER "clang")
+    SET(CMAKE_CXX_COMPILER "clang++")
+endif ()
 
 set(libprotobuf_sources
         ${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc

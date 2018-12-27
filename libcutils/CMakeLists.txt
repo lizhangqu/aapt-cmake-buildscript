@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.6)
 project(libcutils)
 
 if (UNIX AND NOT APPLE)
-    SET(CMAKE_C_COMPILER "/usr/bin/clang")
-    SET(CMAKE_CXX_COMPILER "/usr/bin/clang++")
+    SET(CMAKE_C_COMPILER "clang")
+    SET(CMAKE_CXX_COMPILER "clang++")
 endif ()
 
 set(libcutils_sources
@@ -24,13 +24,13 @@ set(libcutils_sources
         ${CMAKE_SOURCE_DIR}/system/core/libcutils/threads.cpp
         )
 
-if(WIN32)
+if (WIN32)
     list(APPEND libcutils_sources
             ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_inaddr_any_server_windows.cpp
             ${CMAKE_SOURCE_DIR}/system/core/libcutils/socket_network_client_windows.cpp
             ${CMAKE_SOURCE_DIR}/system/core/libcutils/sockets_windows.cpp
             )
-elseif(UNIX)
+elseif (UNIX)
     list(APPEND libcutils_sources
             ${CMAKE_SOURCE_DIR}/system/core/libcutils/android_get_control_file.cpp
             ${CMAKE_SOURCE_DIR}/system/core/libcutils/fs.cpp
@@ -42,25 +42,25 @@ elseif(UNIX)
             ${CMAKE_SOURCE_DIR}/system/core/libcutils/sockets_unix.cpp
             ${CMAKE_SOURCE_DIR}/system/core/libcutils/str_parms.cpp
             )
-endif()
+endif ()
 
 set(libcutils_cflag "-Werror -Wall -Wextra -D__STDC_FORMAT_MACROS")
 
-if(WIN32)
+if (WIN32)
     set(libcutils_cflag "${libcutils_cflag} -D_GNU_SOURCE -Wno-error=unused-parameter")
-endif()
+endif ()
 
-if(UNIX)
+if (UNIX)
     set(libcutils_cflag "${libcutils_cflag} -fPIC")
-endif()
+endif ()
 
 #aosp中没有此编译选项
 set(libcutils_cflag "${libcutils_cflag} -Wno-deprecated-declarations")
 
-if(UNIX AND NOT APPLE)
+if (UNIX AND NOT APPLE)
     #启用libcxx
     set(libcutils_cflag "${libcutils_cflag} ${global_libcxx_cxxflags}")
-endif()
+endif ()
 
 #添加宏定义，目的是为了移除一部分实现，如断言，否则编译成功，执行可能有问题
 set(libcutils_cflag "${libcutils_cflag} -DNDEBUG -UDEBUG")
@@ -77,22 +77,22 @@ include_directories(
 )
 
 #mac不参与下面三个库的编译，否则libaapt2_jni有问题
-if(UNIX AND NOT APPLE)
+if (UNIX AND NOT APPLE)
     include_directories(
             ${libcxx_header}
             ${libcxxabi_header}
             ${compiler_rt_header}
     )
-endif()
+endif ()
 
 set(CMAKE_C_FLAGS ${libcutils_cflag})
 set(CMAKE_CXX_FLAGS ${libcutils_cxxflag})
-if(UNIX)
-    if(USE_32BITS)
+if (UNIX)
+    if (USE_32BITS)
         message(STATUS "using 32bits")
         set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
-    endif()
-endif()
+    endif ()
+endif ()
 add_library(cutils STATIC ${libcutils_sources})
 target_link_libraries(cutils log)

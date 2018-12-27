@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.6)
 project(aapt2_static)
 
 if (UNIX AND NOT APPLE)
-    SET(CMAKE_C_COMPILER "/usr/bin/clang")
-    SET(CMAKE_CXX_COMPILER "/usr/bin/clang++")
+    SET(CMAKE_C_COMPILER "clang")
+    SET(CMAKE_CXX_COMPILER "clang++")
 endif ()
 
 if (UNIX)
@@ -146,9 +146,9 @@ set(aapt2_static_cflag "${aapt2_static_cflag} -Wno-deprecated-declarations")
 
 set(aapt2_static_cxxflag "${aapt2_static_cflag} -std=gnu++14 -Wno-missing-field-initializers -fno-exceptions")
 
-if(UNIX AND NOT APPLE)
+if (UNIX AND NOT APPLE)
     set(aapt2_static_cxxflag "${aapt2_static_cxxflag} -Wno-unknown-attributes")
-endif()
+endif ()
 
 include_directories(
         ${protobuf_header}
